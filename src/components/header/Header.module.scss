@@ -1,0 +1,18 @@
+@import '../../scss/variables.scss';
+
+.mainHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+
+  padding: 24px;
+  
+  background: #1b1919;
+}
+
+.mainHeader__title {
+  color: $color_accent;
+  font-family: 'Signika Negative', sans-serif;
+  font-size: 60px;
+}
