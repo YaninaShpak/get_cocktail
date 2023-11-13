@@ -1,0 +1,5 @@
+.cocktails-list {
+  display: grid;
+  grid-template-columns: repeat(3, 260px);
+  column-gap: 40px;
+}
