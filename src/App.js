@@ -4,6 +4,7 @@ import './scss/App.scss';
 //components
 import Header from './components/header/Header';
 import CocktailCard from './components/cocktailCard/CocktailCard';
+import Filters from './components/filters/Filters';
 
 function App() {
   return (
@@ -12,9 +13,7 @@ function App() {
         <Header />
         <main className="main-content">
           <div className="container content-container">
-            <section className="filters content-container__filters">
-              <h2 className="title filters__title">Filters</h2>
-            </section>
+            <Filters/>
             <div className="actions-wrapper content-container__actions">
               <div className="sorting">
                 <h2 className="title sorting__title">Sorting</h2>
