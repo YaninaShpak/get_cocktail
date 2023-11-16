@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
 //styles
 import './scss/App.scss';
 
@@ -6,7 +9,18 @@ import Header from './components/header/Header';
 import CocktailCard from './components/cocktailCard/CocktailCard';
 import Filters from './components/filters/Filters';
 
+
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get('https://64f762d19d775408495385e6.mockapi.io/items?limit=6&page=1')
+      .then(({data}) => setItems(data))
+    setIsLoading(false);
+  }, [])
+
   return (
     <div className="App">
       <div className="wrapper">
@@ -26,9 +40,13 @@ function App() {
             <section className="cocktails content-container__cocktails">
               <h2 className="visually-hidden">Cocktails list</h2>
               <ul className="cocktails-list list-reset cocktails__list">
-                <CocktailCard />
-                <CocktailCard />
-                <CocktailCard />
+                {items.map((el) =>
+                  <CocktailCard
+                    key={el.id}
+                    title={el.Title}
+                    imgUrl={el.Img}
+                    strength={el.totalStrength}
+                />)}
               </ul>
             </section>
           </div>
