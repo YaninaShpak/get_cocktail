@@ -1,15 +1,15 @@
 //styles
 import style from './CocktailCard.module.scss';
 
-const CocktailCard = () => {
+const CocktailCard = ({title, imgUrl, strength}) => {
   return (
     <li className={style.card}>
-      <h3 className={style.card__title}>Apricot Lady</h3>
+      <h3 className={style.card__title}>{title}</h3>
       <div className={style.card__img}>
-        <img src="https://www.thecocktaildb.com/images/media/drink/7ityp11582579598.jpg" alt="Apricot Lady"/>
+        <img src={imgUrl} alt={title}/>
       </div>
       <div className="card__info">
-        <p>Strange: <span>18.7 %</span></p>
+        <p>Strength: <span>{strength} %</span></p>
       </div>
     </li>
   );
