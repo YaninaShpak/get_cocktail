@@ -1,0 +1,136 @@
+@import '../../scss/variables.scss';
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  
+  border: 2px solid $color_light;
+}
+
+.dropdown__container {
+  position: relative;
+}
+
+.dropdownBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 50px;
+
+  transition: 0.5s;
+  cursor: pointer;
+
+  &__icon {
+    color: $color_light;
+  }
+}
+
+.dropdown__title {
+  padding: 5px 20px;
+
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 2;
+  letter-spacing: 0.05em;
+  color: $color_accent;
+  cursor: pointer;
+}
+
+.dropdown__searchInput {
+  padding: 5px 20px;
+  width: 100%;
+
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 2;
+  letter-spacing: 0.05em;
+  color: #fff;
+
+  background-color: lighten($color_basic, 10%);
+  border: none;
+  outline: none;
+}
+
+.options {
+  display: none;
+
+  padding: 27px 20px 31px;
+
+  background: transparent;
+  
+  overflow: hidden;
+}
+
+.options__item {
+  padding-left: 6px;
+
+  font-size: 16px;
+  line-height: 2.5;
+  letter-spacing: 0.05em;
+  color: lighten($color_basic, 40%);
+  border-bottom: 1px solid lighten($color_basic, 40%);
+  cursor: pointer;
+  transition: all 0.5s linear;
+
+  &:hover {
+    color: lighten($color_basic, 20%);
+    border-bottom-color: lighten($color_basic, 20%);
+  }
+}
+
+.options__label {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+.radioIcon {
+  position: relative;
+
+  width: 20px;
+  height: 20px;
+
+  border: 2px solid lighten($color_basic, 40%);
+  border-radius: 50%;
+}
+
+.options__label input:checked ~ .radioIcon::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 10px;
+  height: 10px;
+
+  background: $color_accent;
+
+  border-radius: 50%;
+}
+
+.dropdown.show {
+  .dropdown__container {
+    background: #373535;
+  }
+
+  .dropdownBtn__icon {
+    transform: rotate(180deg);
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+  }
+} 
