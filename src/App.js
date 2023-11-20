@@ -8,6 +8,7 @@ import './scss/App.scss';
 import Header from './components/header/Header';
 import CocktailCard from './components/cocktailCard/CocktailCard';
 import Filters from './components/filters/Filters';
+import SkeletonCocktailCard from './components/cocktailCard/SkeletonCocktailCard';
 
 
 function App() {
@@ -17,9 +18,11 @@ function App() {
   useEffect(() => {
     axios
       .get('https://64f762d19d775408495385e6.mockapi.io/items?limit=6&page=1')
-      .then(({data}) => setItems(data))
+      .then(({ data }) => setItems(data))
     setIsLoading(false);
-  }, [])
+  }, []);
+
+  const skeletons = [...Array(3)].map((_, index) => <SkeletonCocktailCard key={index} />)
 
   return (
     <div className="App">
@@ -40,7 +43,7 @@ function App() {
             <section className="cocktails content-container__cocktails">
               <h2 className="visually-hidden">Cocktails list</h2>
               <ul className="cocktails-list list-reset cocktails__list">
-                {items.map((el) =>
+                {isLoading ? skeletons : items.map((el) =>
                   <CocktailCard
                     key={el.id}
                     title={el.Title}
