@@ -4,7 +4,7 @@ import { setCurrentCategory } from '../../redux/slices/filterSlice';
 //styles
 import styles from './CategoriesFilter.module.scss';
 
-const categories = ['All', 'Alcoholic', 'Non-alcoholic'];
+const categories = ['All', 'Alcoholic', 'Non alcoholic'];
 
 const CategoriesFilter = () => {
   const dispatch = useDispatch();
@@ -16,8 +16,8 @@ const CategoriesFilter = () => {
         {categories.map((category, index) => (
           <li
             key={index}
-            className={`${styles.categoriesList__item} ${currentCategory === index ? styles.current : '' }`}
-            onClick={() => dispatch(setCurrentCategory(index))}
+            className={`${styles.categoriesList__item} ${currentCategory === category ? styles.current : '' }`}
+            onClick={() => dispatch(setCurrentCategory(category))}
           >
             {category}
           </li>
