@@ -42,8 +42,30 @@
   cursor: pointer;
 }
 
+.dropdown__listWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  height: 430px;
+}
+
+.dropdown__search {
+  position: relative;
+  padding: 27px 20px 31px;
+}
+
+.dropdown__searchIcon {
+  position: absolute;
+  top: 40px;
+  right: 25px;
+
+  color: $color_light;
+}
+
 .dropdown__searchInput {
   padding: 5px 20px;
+  padding-right: 30px;
   width: 100%;
 
   font-weight: 400;
@@ -58,13 +80,15 @@
 }
 
 .options {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
 
-  padding: 27px 20px 31px;
+  padding: 0 20px 30px;
 
   background: transparent;
   
-  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .options__item {
@@ -119,6 +143,32 @@
   border-radius: 50%;
 }
 
+.dropdown__button {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+
+  width: 60%;
+  padding: 10px 15px;
+
+  font-size: 20px;
+  color: #fff;
+
+  background-color: rgba(lighten($color_basic, 10%), 0.7);
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 0 10px 0 lighten($color_basic, 10%);
+
+  cursor: pointer;
+
+  transition: all 0.5s;
+
+  &:hover {
+    background-color: lighten($color_basic, 10%);
+  }
+}
+
 .dropdown.show {
   .dropdown__container {
     background: #373535;
@@ -126,11 +176,5 @@
 
   .dropdownBtn__icon {
     transform: rotate(180deg);
-  }
-
-  .options {
-    display: flex;
-    flex-direction: column;
-    row-gap: 12px;
   }
 } 
