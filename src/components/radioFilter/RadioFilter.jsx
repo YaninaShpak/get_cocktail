@@ -58,26 +58,20 @@ const RadioFilter = () => {
       options = alcoOptions.concat(nonAlcoOptions);
     }
 
-    if (!allList) {
-      return options.slice(0, 6);
+    if (searchOption) {
+      return options.filter((el) => el.toLowerCase().includes(searchOption.toLowerCase()))
     } else {
-      return options;
+      if (!allList) {
+        return options.slice(0, 6);
+      } else {
+        return options;
+      }
     }
-  }, [category, allList]);
-
-  const renderOptionsList = useCallback(() => {
-    let options = createOptionList();
-    
-    return searchOption
-      ? options.filter((el) =>
-          el.toLowerCase().includes(searchOption.toLowerCase())
-        )
-      : options;
-  }, [createOptionList, searchOption]);
+  }, [category, allList, searchOption]);
 
   useEffect(() => {
-    setOptionsList(renderOptionsList)
-  }, [renderOptionsList]);
+    setOptionsList(createOptionList)
+  }, [createOptionList]);
 
   return (
     <div
