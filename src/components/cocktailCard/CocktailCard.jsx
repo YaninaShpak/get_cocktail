@@ -9,7 +9,7 @@ const CocktailCard = ({title, imgUrl, strength}) => {
         <img src={imgUrl} alt={title}/>
       </div>
       <div className="card__info">
-        <p>Strength: <span>{strength} %</span></p>
+        {strength && <p>Strength: <span>{strength} %</span></p>}
       </div>
     </li>
   );
