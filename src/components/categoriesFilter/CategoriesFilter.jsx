@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentCategory } from '../../redux/slices/filterSlice';
+import { setSorting } from '../../redux/slices/sortingSlice';
 
 //styles
 import styles from './CategoriesFilter.module.scss';
@@ -17,7 +18,10 @@ const CategoriesFilter = () => {
           <li
             key={index}
             className={`${styles.categoriesList__item} ${currentCategory === category ? styles.current : '' }`}
-            onClick={() => dispatch(setCurrentCategory(category))}
+            onClick={() => {
+              dispatch(setCurrentCategory(category));
+              category === 'Non alcoholic' && dispatch(setSorting({ nameItem: 'popularity', nameSort: '' }))
+            }}
           >
             {category}
           </li>
