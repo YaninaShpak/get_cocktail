@@ -10,15 +10,17 @@ import Header from "./components/header/Header";
 import CocktailCard from "./components/cocktailCard/CocktailCard";
 import Filters from "./components/filters/Filters";
 import SkeletonCocktailCard from "./components/cocktailCard/SkeletonCocktailCard";
+import Sorting from "./components/sorting/Sorting";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [items, setItems] = useState([]);
   const { category, baseIngredient } = useSelector((state) => state.filter);
+  const { sorting } = useSelector((state) => state.sort);
 
   useEffect(() => {
     axios
-      .get("https://64f762d19d775408495385e6.mockapi.io/items")
+      .get(`https://64f762d19d775408495385e6.mockapi.io/items?sortBy=${sorting.nameSort}&order=${sorting.order ? sorting.order : ''}`)
       .then(({ data }) =>
         category !== "All"
           ? data.filter(
@@ -37,7 +39,7 @@ function App() {
       })
       .then((data) => setItems(data));
     setIsLoading(false);
-  }, [category, baseIngredient]);
+  }, [category, baseIngredient, sorting]);
 
   const skeletons = [...Array(3)].map((_, index) => (
     <SkeletonCocktailCard key={index} />
@@ -60,7 +62,7 @@ function App() {
       }
     }
   };
-
+  
   return (
     <div className="App">
       <div className="wrapper">
@@ -69,9 +71,7 @@ function App() {
           <div className="container content-container">
             <Filters />
             <div className="actions-wrapper content-container__actions">
-              <div className="sorting">
-                <h2 className="title sorting__title">Sorting</h2>
-              </div>
+              <Sorting/>
               <div className="search">
                 <input type="search" />
               </div>
