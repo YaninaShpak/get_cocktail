@@ -1,0 +1,47 @@
+@import '../../scss/variables.scss';
+
+.sorting {
+  position: relative;
+
+  display: flex;
+
+  min-width: 200px;
+  min-height: 55px;
+}
+
+.sorting__title {
+  min-width: 320px;
+
+  span {
+    font-weight: 400;
+    color: $color_accent;
+    text-decoration: underline;
+
+    cursor: pointer;
+  }
+}
+
+.sortingList {
+  position: absolute;
+  top: 55px;
+  left: 30%;
+  z-index: 3;
+
+  min-width: 160px;
+  background-color: lighten($color: $color_light, $amount: 10%);
+}
+
+.sortingList__item {
+  padding: 10px 15px;
+
+  cursor: default;
+
+  &:hover {
+    background-color: $color_light;
+  }
+
+  &.current {
+    color: $color_accent;
+    // background-color: $color_light;
+  }
+}
