@@ -1,0 +1,36 @@
+@import '../../scss/variables.scss';
+
+.root {
+  position: relative;
+}
+
+.input {
+  
+  width: 100%;
+  padding: 10px 15px;
+ 
+  font-family: 'Roboto', sans-serif;
+  color: $color_light;
+  font-size: 20px;
+
+  border-radius: 10px;
+
+  &:focus {
+    border: 2px solid rgba(0, 0, 0, 0.5);
+  }
+}
+
+.iconClear {
+  position: absolute;
+
+  top: 50%;
+  transform: translateY(-50%);
+  right: 15px;
+
+  opacity: 0.3;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
