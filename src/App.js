@@ -11,12 +11,16 @@ import CocktailCard from "./components/cocktailCard/CocktailCard";
 import Filters from "./components/filters/Filters";
 import SkeletonCocktailCard from "./components/cocktailCard/SkeletonCocktailCard";
 import Sorting from "./components/sorting/Sorting";
+import Search from "./components/search/Search";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [items, setItems] = useState([]);
   const { category, baseIngredient } = useSelector((state) => state.filter);
   const { sorting } = useSelector((state) => state.sort);
+  const searchValue = useSelector((state) => state.search.searchValue);
+
+  
 
   useEffect(() => {
     axios
@@ -37,9 +41,13 @@ function App() {
           ) ?? data
         );
       })
-      .then((data) => setItems(data));
-    setIsLoading(false);
-  }, [category, baseIngredient, sorting]);
+      .then((data) => data.filter((el) => el.Title.toLowerCase().includes(searchValue.toLowerCase())))
+      .then((data) => {
+        setItems(data);
+        setIsLoading(false);
+      });
+    
+  }, [category, baseIngredient, sorting, searchValue]);
 
   const skeletons = [...Array(3)].map((_, index) => (
     <SkeletonCocktailCard key={index} />
@@ -71,10 +79,8 @@ function App() {
           <div className="container content-container">
             <Filters />
             <div className="actions-wrapper content-container__actions">
+              <Search/>
               <Sorting/>
-              <div className="search">
-                <input type="search" />
-              </div>
               <button className="btn-random" type="button">
                 Random cocktail
               </button>
