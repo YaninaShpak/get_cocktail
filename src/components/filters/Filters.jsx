@@ -8,7 +8,9 @@ import RadioFilter from '../radioFilter/RadioFilter';
 const Filters = () => {
   return (
     <section className={`${styles.filters} content-container__filters`}>
-      <h2 className={`title ${styles.filters__title}`}>Filters</h2>
+      <div className={styles.filters__titleWrapper}>
+        <h2 className={`title ${styles.filters__title}`}>Filters</h2>
+      </div>
       <div className={styles.filters__wrapper}>
         <CategoriesFilter />
         <RadioFilter />

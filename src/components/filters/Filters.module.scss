@@ -3,6 +3,12 @@
   flex-direction: column;
 }
 
+.filters__titleWrapper {
+  display: flex;
+  align-items: center;
+  height: 100px;
+}
+
 .filters__title {
   margin-bottom: 10px;
 }
