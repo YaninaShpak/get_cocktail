@@ -7,20 +7,7 @@ import { setBaseIngredient } from "../../redux/slices/filterSlice";
 import styles from "./RadioFilter.module.scss";
 
 const alcoOptions = ['Champagne', 'Cognac', 'Gin', 'Jägermeister', 'Liqueur', 'Rum', 'Tequila', 'Vermouth', 'Vodka', 'Whiskey', 'Wine'];
-const nonAlcoOptions = [
-  "Apple",
-  "Banana",
-  "Chocolate",
-  "Coffee",
-  "Ginger",
-  "Juice",
-  "Mango",
-  "Milk",
-  "Orange",
-  "Soda water",
-  "Tea",
-  "Yoghurt",
-];
+const nonAlcoOptions = ["Apple", "Banana", "Chocolate", "Coffee", "Ginger", "Juice", "Mango", "Milk", "Orange", "Soda water", "Tea", "Yoghurt"];
 
 const RadioFilter = () => {
   const valueTitle = useSelector((state) => state.filter.baseIngredient);
@@ -74,11 +61,7 @@ const RadioFilter = () => {
   }, [createOptionList]);
 
   return (
-    <div
-      className={`${styles.dropdown} ${
-        dropdownList ? styles.show : ""
-      } filters__dropdown`}
-    >
+    <div className={`${styles.dropdown} ${dropdownList ? styles.show : ""} filters__dropdown`}>
       <div className={styles.dropdown__container} onClick={showDropdownList}>
         <p className={styles.dropdown__title}>
           {valueTitle ? valueTitle : "Choose base ingredient"}
