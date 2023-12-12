@@ -8,8 +8,8 @@ import styles from './Sorting.module.scss';
 const sortList = [
   { nameItem: 'popularity', nameSort: '' },
   { nameItem: 'alphabet', nameSort: 'title' },
-  { nameItem: 'strength (stronger)', nameSort: 'totalStrength', order: 'desc' },
-  { nameItem: 'strength (weak)', nameSort: 'totalStrength', order: 'asc'}
+  { nameItem: 'strength ↑', nameSort: 'totalStrength', order: 'desc' },
+  { nameItem: 'strength ↓', nameSort: 'totalStrength', order: 'asc'}
 ];
 
 const Sorting = () => {
