@@ -1,22 +1,25 @@
-import React from 'react';
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 //components
-import CocktailCard from "../components/cocktailCard/CocktailCard";
+import CocktailCardMini from "../components/cocktailCardMini/CocktailCardMini";
 import Filters from "../components/filters/Filters";
-import SkeletonCocktailCard from "../components/cocktailCard/SkeletonCocktailCard";
+import SkeletonCocktailCardMini from "../components/cocktailCardMini/SkeletonCocktailCardMini";
 import Sorting from "../components/sorting/Sorting";
 import Search from "../components/search/Search";
 import RandomCocktailButton from "../components/buttons/RandomCocktailButton/RandomCocktailButton";
 
+//states
+import { setItems } from '../redux/slices/cocktailListSlice';
+
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [items, setItems] = useState([]);
+  const { items } = useSelector((state) => state.cocktailList)
   const { category, baseIngredient } = useSelector((state) => state.filter);
   const { sorting } = useSelector((state) => state.sort);
   const searchValue = useSelector((state) => state.search.searchValue);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios
@@ -39,15 +42,13 @@ const Home = () => {
       })
       .then((data) => data.filter((el) => el.Title.toLowerCase().includes(searchValue.toLowerCase())))
       .then((data) => {
-        setItems(data);
+        dispatch(setItems(data));
         setIsLoading(false);
       });
     
   }, [category, baseIngredient, sorting, searchValue]);
 
-  const skeletons = [...Array(3)].map((_, index) => (
-    <SkeletonCocktailCard key={index} />
-  ));
+  const skeletons = Array.from({length: 3}, (_, index) => (<SkeletonCocktailCardMini key={index} />));
 
   const isItems = () => {
     if (isLoading) {
@@ -57,8 +58,9 @@ const Home = () => {
         return "Nothing found";
       } else {
         return items.map((el) => (
-          <CocktailCard
+          <CocktailCardMini
             key={el.id}
+            link={el.id}
             title={el.Title}
             imgUrl={el.Img}
             strength={el.totalStrength}
