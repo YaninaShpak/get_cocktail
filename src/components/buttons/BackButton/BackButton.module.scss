@@ -1,0 +1,27 @@
+@import '../../../scss/variables.scss';
+
+.BackButton {
+    position: absolute;
+    bottom: 0;
+    left: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 80px;
+    height: 80px;
+
+    color: #000;
+
+    background-color: #fff;
+
+    border: none;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 0 0 20px 0 $color_accent;
+    }
+}
