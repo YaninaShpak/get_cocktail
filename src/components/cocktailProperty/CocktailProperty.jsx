@@ -1,8 +1,11 @@
 import React from 'react';
 
+//styles
+import styles from './CocktailProperty.module.scss';
+
 const CocktailProperty = ({title, desc}) => {
   return (
-    <div className="cocktailPage__property">
+    <div className={styles.root}>
       <h2>{title}</h2>
       <p>{desc}</p>
     </div>
