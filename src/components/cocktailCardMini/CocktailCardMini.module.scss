@@ -1,0 +1,54 @@
+@import '../../scss/variables.scss';
+
+.cardMini {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  row-gap: 10px;
+
+  padding: 10px 0;
+
+  background-color: $color_basic;
+
+  border: 2px solid $color_accent;
+  border-radius: 10px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 7%;
+    left: 3%;
+    right: 3%;
+
+    height: 90%;
+
+    background-image: url('https://www.thecocktaildb.com/images/media/drink/xxyywq1454511117.jpg');
+    background-size: auto;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    border-radius: inherit;
+    -webkit-filter: blur(20px);
+    filter: blur(20px);
+  }
+}
+
+.cardMini__title {
+  text-transform: uppercase;
+}
+
+.cardMini__img {
+  width: 100%;
+  height: 250px;
+
+  overflow: hidden;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
