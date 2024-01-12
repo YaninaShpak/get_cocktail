@@ -9,27 +9,34 @@ import SkeletonCocktailCardMini from "../components/cocktailCardMini/SkeletonCoc
 import Sorting from "../components/sorting/Sorting";
 import Search from "../components/search/Search";
 import RandomCocktailButton from "../components/buttons/RandomCocktailButton/RandomCocktailButton";
+import PaginationComponent from '../components/pagination/PaginationComponent';
 
 //states
 import { setItems } from '../redux/slices/cocktailListSlice';
+import { setCountItems } from '../redux/slices/paginationSlice';
+
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const { items } = useSelector((state) => state.cocktailList)
+
+  const { items } = useSelector((state) => state.cocktailList);
   const { category, baseIngredient } = useSelector((state) => state.filter);
   const { sorting } = useSelector((state) => state.sort);
   const searchValue = useSelector((state) => state.search.searchValue);
+  const {currentPage} = useSelector((state) => state.pagination);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     axios
-      .get(`https://64f762d19d775408495385e6.mockapi.io/items?sortBy=${sorting.nameSort}&order=${sorting.order ? sorting.order : ''}`)
-      .then(({ data }) =>
+      .get(`https://64f762d19d775408495385e6.mockapi.io/items?&sortBy=${sorting.nameSort}&order=${sorting.order ? sorting.order : ''}`)
+      .then(({ data }) => 
         category !== "All"
           ? data.filter(
               (el) => el.Alcoholic.toLowerCase() === category.toLowerCase()
             )
           : data
+        
       )
       .then((data) => {
         return (
@@ -42,11 +49,13 @@ const Home = () => {
       })
       .then((data) => data.filter((el) => el.Title.toLowerCase().includes(searchValue.toLowerCase())))
       .then((data) => {
-        dispatch(setItems(data));
+        dispatch(setCountItems(data.length));
+        let page = data.slice(currentPage * 9 - 9, currentPage * 9);
+        dispatch(setItems(page));
         setIsLoading(false);
       });
     
-  }, [category, baseIngredient, sorting, searchValue]);
+  }, [category, baseIngredient, sorting, searchValue, currentPage]);
 
   const skeletons = Array.from({length: 3}, (_, index) => (<SkeletonCocktailCardMini key={index} />));
 
@@ -83,6 +92,7 @@ const Home = () => {
           <ul className="cocktails-list list-reset cocktails__list">
             {isItems()}
           </ul>
+          <PaginationComponent/>
         </section>
     </div>
   );
