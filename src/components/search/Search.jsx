@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import debounce from 'lodash.debounce';
 
 import { setSearchValue } from '../../redux/slices/searchSlice';
+import { setCurrentPage } from '../../redux/slices/paginationSlice';
 
 //styles
 import styles from './Search.module.scss';
@@ -22,6 +23,7 @@ const Search = () => {
   const updatedSearchValue = useCallback(
     debounce((str) => {
       dispatch(setSearchValue(str));
+      dispatch(setCurrentPage(1))
     }, 800), []);
 
   const onChangeSearch = (e) => {
