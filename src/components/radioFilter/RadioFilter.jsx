@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setBaseIngredient } from "../../redux/slices/filterSlice";
+import { setCurrentPage } from "../../redux/slices/paginationSlice";
 
 //styles
 import styles from "./RadioFilter.module.scss";
@@ -27,6 +28,7 @@ const RadioFilter = () => {
   const onChangeRadioButton = (el) => {
     dispatch(setBaseIngredient(el));
     setSearchOption("");
+    dispatch(setCurrentPage(1))
   };
 
   const showDropdownList = () => {
