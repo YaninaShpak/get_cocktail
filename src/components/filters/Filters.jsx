@@ -4,6 +4,7 @@ import styles from './Filters.module.scss';
 //components
 import CategoriesFilter from '../categoriesFilter/CategoriesFilter';
 import RadioFilter from '../radioFilter/RadioFilter';
+import RangeSlider from '../rangeSlider/RangeSlider';
 
 const Filters = () => {
   return (
@@ -14,6 +15,7 @@ const Filters = () => {
       <div className={styles.filters__wrapper}>
         <CategoriesFilter />
         <RadioFilter />
+        <RangeSlider/>
       </div>
     </section>
   );
