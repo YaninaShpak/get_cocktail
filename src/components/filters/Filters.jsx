@@ -1,3 +1,5 @@
+import { useSelector } from 'react-redux';
+
 //styles
 import styles from './Filters.module.scss';
 
@@ -7,6 +9,7 @@ import RadioFilter from '../radioFilter/RadioFilter';
 import RangeSlider from '../rangeSlider/RangeSlider';
 
 const Filters = () => {
+  const { category } = useSelector((state) => state.filter);
   return (
     <section className={`${styles.filters} content-container__filters`}>
       <div className={styles.filters__titleWrapper}>
@@ -15,7 +18,7 @@ const Filters = () => {
       <div className={styles.filters__wrapper}>
         <CategoriesFilter />
         <RadioFilter />
-        <RangeSlider/>
+        {category === 'Alcoholic' && <RangeSlider/>}
       </div>
     </section>
   );
