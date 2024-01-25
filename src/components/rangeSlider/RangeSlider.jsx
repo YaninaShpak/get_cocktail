@@ -1,4 +1,8 @@
 import React, { useState, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import {setValueMin, setValueMax} from  '../../redux/slices/rangeSliderSlice';
+import { setCurrentPage } from '../../redux/slices/paginationSlice';
 
 import debounce from 'lodash.debounce';
 
@@ -6,11 +10,12 @@ import styles from './RangeSlider.module.scss';
 
 const RangeSlider = () => {
   //values for range
-  const [valueMin, setValueMin] = useState(0);
-  const [valueMax, setValueMax] = useState(100);
+  const {valueMin} = useSelector((state) => state.rangeSlider);
+  const {valueMax} = useSelector((state) => state.rangeSlider);
+  const dispatch = useDispatch();
 
   //values for input namber
-  const [valueNumMin, setValueNumMin] = useState(0);
+  const [valueNumMin, setValueNumMin] = useState(3);
   const [valueNumMax, setValueNumMax] = useState(100);
 
   //percents
@@ -21,13 +26,27 @@ const RangeSlider = () => {
   const max = 100;
 
   //change progress bar
+  const debonceHandleRangeMin = useCallback(
+    debounce((x) => {
+      dispatch(setValueMin(x));
+      dispatch(setCurrentPage(1));
+    }, 800), []
+  );
+
+  const debonceHandleRangeMax = useCallback(
+    debounce((x) => {
+      dispatch(setValueMax(x));
+      dispatch(setCurrentPage(1));
+    }, 800), []
+  );
+
   const handleRangeMin = (event) => {
     let newValue = parseInt(event.target.value);
 
     if (valueMax - newValue < rangeStep) {
       newValue =valueMax - rangeStep;
     } 
-    setValueMin(newValue);
+    debonceHandleRangeMin(newValue);
     setValueNumMin(newValue);
     setPercentMin((newValue / max) * 100);
   };
@@ -38,7 +57,7 @@ const RangeSlider = () => {
     if (newValue - valueMin < rangeStep) {
       newValue = valueMin + rangeStep;
     } 
-    setValueMax(newValue);
+    debonceHandleRangeMax(newValue);
     setValueNumMax(newValue);
     setPercentMax((newValue / max) * 100);
   };
@@ -47,20 +66,22 @@ const RangeSlider = () => {
   const debouncedHandleNumberMinChange = useCallback(
     debounce((newValue) => {
       if (newValue < valueMax) {
-        setValueMin(newValue);
+        dispatch(setValueMin(newValue));
+        dispatch(setCurrentPage(1));
         setPercentMin((newValue / 100) * 100);
       }
-    }, 800),
+    }, 500),
     []
   );
 
   const debouncedHandleNumberMaxChange = useCallback(
     debounce((newValue) => {
       if (newValue > valueMin) {
-        setValueMax(newValue);
+        dispatch(setValueMax(newValue));
+        dispatch(setCurrentPage(1))
         setPercentMax((newValue / 100) * 100);
       }
-    }, 800),
+    }, 500),
     []
   );
 
@@ -119,9 +140,9 @@ const RangeSlider = () => {
         <input
             className={styles.rangeInput__min}
             type="range"
-            min="0"
+            min="3"
             max="100"
-            value={valueMin}
+            value={valueNumMin}
             onInput={handleRangeMin}
           />
         <input
@@ -129,7 +150,7 @@ const RangeSlider = () => {
           type="range"
           min="0"
           max="100"
-          value={valueMax}
+          value={valueNumMax}
           onInput={handleRangeMax}
         />
       </div>
