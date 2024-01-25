@@ -24,6 +24,8 @@ const Home = () => {
   const { sorting } = useSelector((state) => state.sort);
   const searchValue = useSelector((state) => state.search.searchValue);
   const {currentPage} = useSelector((state) => state.pagination);
+  const {valueMin} = useSelector((state) => state.rangeSlider);
+  const {valueMax} = useSelector((state) => state.rangeSlider);
 
   const dispatch = useDispatch();
 
@@ -48,6 +50,7 @@ const Home = () => {
         );
       })
       .then((data) => data.filter((el) => el.Title.toLowerCase().includes(searchValue.toLowerCase())))
+      .then((data) => data.filter((el) => Number(el.totalStrength) >= valueMin &&  Number(el.totalStrength) <= valueMax))
       .then((data) => {
         dispatch(setCountItems(data.length));
         let page = data.slice(currentPage * 9 - 9, currentPage * 9);
@@ -55,7 +58,7 @@ const Home = () => {
         setIsLoading(false);
       });
     
-  }, [category, baseIngredient, sorting, searchValue, currentPage]);
+  }, [category, baseIngredient, sorting, searchValue, currentPage, valueMin, valueMax]);
 
   const skeletons = Array.from({length: 3}, (_, index) => (<SkeletonCocktailCardMini key={index} />));
 
