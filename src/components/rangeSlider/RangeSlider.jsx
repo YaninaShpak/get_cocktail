@@ -1,43 +1,93 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+
+import debounce from 'lodash.debounce';
 
 import styles from './RangeSlider.module.scss';
 
 const RangeSlider = () => {
+  //values for range
   const [valueMin, setValueMin] = useState(0);
   const [valueMax, setValueMax] = useState(100);
+
+  //values for input namber
+  const [valueNumMin, setValueNumMin] = useState(0);
+  const [valueNumMax, setValueNumMax] = useState(100);
+
+  //percents
   const [percentMin, setPercentMin] = useState(0);//left
   const [percentMax, setPercentMax] = useState(100);//right
 
-  const handleRangeMin = (event) => {
-    setValueMin(parseInt(event.target.value));
+  const rangeStep = 2;
+  const max = 100;
 
-    if (valueMax - valueMin < 10) {
-      setValueMin(valueMax - 10);
-    } else {
-      setPercentMin((valueMin / event.target.max) * 100);
-    }
+  //change progress bar
+  const handleRangeMin = (event) => {
+    let newValue = parseInt(event.target.value);
+
+    if (valueMax - newValue < rangeStep) {
+      newValue =valueMax - rangeStep;
+    } 
+    setValueMin(newValue);
+    setValueNumMin(newValue);
+    setPercentMin((newValue / max) * 100);
   };
 
   const handleRangeMax = (event) => {
-    setValueMax(parseInt(event.target.value));
+    let newValue = parseInt(event.target.value);
 
-    if (valueMax - valueMin < 10) {
-      setValueMax(valueMin + 10);
-    } else {
-      setPercentMax((valueMax / event.target.max) * 100);
+    if (newValue - valueMin < rangeStep) {
+      newValue = valueMin + rangeStep;
+    } 
+    setValueMax(newValue);
+    setValueNumMax(newValue);
+    setPercentMax((newValue / max) * 100);
+  };
+
+  //change input number
+  const debouncedHandleNumberMinChange = useCallback(
+    debounce((newValue) => {
+      if (newValue < valueMax) {
+        setValueMin(newValue);
+        setPercentMin((newValue / 100) * 100);
+      }
+    }, 800),
+    []
+  );
+
+  const debouncedHandleNumberMaxChange = useCallback(
+    debounce((newValue) => {
+      if (newValue > valueMin) {
+        setValueMax(newValue);
+        setPercentMax((newValue / 100) * 100);
+      }
+    }, 800),
+    []
+  );
+
+  const handleNumberMinChange = (e) => {
+    let newValue = parseInt(e.target.value);
+    if (newValue <= 100) {
+      if (!isNaN(newValue)) {
+        setValueNumMin(newValue);
+        debouncedHandleNumberMinChange(newValue);
+      } else {
+        setValueNumMin('');
+      }
     }
   };
 
-  const handleNumberMinChange = (event) => {
-    setValueMin(event.target.value);
-    setPercentMin((valueMin / event.target.max) * 100);
-  };
+  const handleNumberMaxChange = (e) => {
+    let newValue = parseInt(e.target.value);
 
-  const handleNumberMaxChange = (event) => {
-    setValueMax(parseInt(event.target.value));
-    setPercentMax((valueMax / event.target.max) * 100);
-    console.log(valueMax, percentMax)
-  }
+    if (newValue <=100) {
+      if (!isNaN(newValue)) {
+        setValueNumMax(newValue);
+        debouncedHandleNumberMaxChange(newValue);
+      } else {
+        setValueNumMax('');
+      }
+    }
+  };
 
   return (
     <div>
@@ -47,7 +97,7 @@ const RangeSlider = () => {
         <input 
           type="number" 
           className="inputMin"
-          value={valueMin}
+          value={valueNumMin}
           onChange={handleNumberMinChange}
           />
       </div>
@@ -57,7 +107,7 @@ const RangeSlider = () => {
         <input 
           type="number" 
           className="inputMax"
-          value={valueMax}
+          value={valueNumMax}
           onChange={handleNumberMaxChange}
           />
       </div>
