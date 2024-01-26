@@ -1,0 +1,74 @@
+@import '../../../scss/variables.scss';
+
+.priceInput {
+  display: flex;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.field {
+  display: flex;
+
+  input {
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      appearance: none;
+      margin: 0;
+    }
+  }
+}
+
+.slider {
+  position: relative;
+  height: 5px;
+  border-radius: 5px;
+  background: #ddd;
+}
+
+.progress {
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  height: 5px;
+  border-radius: 5px;
+  background: $color_accent;
+}
+
+.rangeInput {
+  position: relative;
+
+  input {
+    position: absolute;
+    top: -5px;
+    height: 5px;
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    pointer-events: none;
+    appearance: none;
+
+    &::-webkit-slider-thumb {
+      height: 17px;
+      width: 17px;
+      background: $color_accent;
+      border-radius: 50%;
+
+      pointer-events: auto;
+      appearance: none;
+    }
+
+    &::-moz-range-thumb {
+      height: 17px;
+      width: 17px;
+      background: $color_accent;
+      border-radius: 50%;
+
+      pointer-events: auto;
+      -moz-appearance: none;
+    }
+  }
+}
