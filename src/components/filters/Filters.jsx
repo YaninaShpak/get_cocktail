@@ -4,9 +4,10 @@ import { useSelector } from 'react-redux';
 import styles from './Filters.module.scss';
 
 //components
-import CategoriesFilter from '../categoriesFilter/CategoriesFilter';
-import RadioFilter from '../radioFilter/RadioFilter';
-import RangeSlider from '../rangeSlider/RangeSlider';
+import CategoriesFilter from './categoriesFilter/CategoriesFilter';
+import RadioFilter from './radioFilter/RadioFilter';
+import RangeSlider from './rangeSlider/RangeSlider';
+import SubcategoriesFilter from './subcategoriesFilter/SubcategoriesFilter';
 
 const Filters = () => {
   const { category } = useSelector((state) => state.filter);
@@ -19,6 +20,8 @@ const Filters = () => {
         <CategoriesFilter />
         <RadioFilter />
         {category === 'Alcoholic' && <RangeSlider/>}
+        {category === 'Alcoholic' && <SubcategoriesFilter/>}
+        
       </div>
     </section>
   );
