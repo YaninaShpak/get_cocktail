@@ -1,0 +1,35 @@
+@import '../../../scss/variables.scss';
+
+.root {
+
+}
+
+.title {
+  margin-bottom: 15px;
+}
+
+.list {
+  display: flex;
+  column-gap: 20px;
+}
+
+.listItem {
+  padding: 10px;
+
+  font-size: 18px;
+
+  border: 1px solid $color_light;
+
+  &:hover {
+    
+    background-color: $color_light;
+    cursor: pointer;
+  }
+
+  &.current {
+    background-color: #807f7f;
+    box-shadow: inset 0 0 0 2px #373535;
+    border: none;
+  }
+}
+
