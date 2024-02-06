@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  sorting: { nameItem: 'popularity', nameSort: '' }
+  sorting: JSON.parse(localStorage.getItem('sorting')) || { nameItem: 'popularity', nameSort: '' }
 };
 
 export const sortingSlice = createSlice({

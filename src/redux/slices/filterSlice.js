@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  category: 'All',
-  subcategory: null,
-  baseIngredient: '',
+  category: JSON.parse(localStorage.getItem('category')) || 'All',
+  subcategory: JSON.parse(localStorage.getItem('subcategory')),
+  baseIngredient: JSON.parse(localStorage.getItem('baseIngredient')) || '',
+  ingredientsOff: JSON.parse(localStorage.getItem('ingredientsOff')) || [],
+  ingredientsOn: JSON.parse(localStorage.getItem('ingredientsOn')) || []
 };
 
 export const filterSlice = createSlice({
@@ -19,8 +21,16 @@ export const filterSlice = createSlice({
     setBaseIngredient: (state, action) => {
       state.baseIngredient = action.payload
     },
+    setIngredientsOff: (state, action) => {
+      state.ingredientsOff = [...state.ingredientsOff, action.payload];
+      state.ingredientsOn = state.ingredientsOn.filter((el) => el !== action.payload)
+    },
+    setIngredientsOn: (state, action) => {
+      state.ingredientsOn = [...state.ingredientsOn, action.payload];
+      state.ingredientsOff = state.ingredientsOff.filter((el) => el !== action.payload)
+    },
   }
 });
 
-export const { setCurrentCategory, setCurrentSubCategory, setBaseIngredient } = filterSlice.actions;
+export const { setCurrentCategory, setCurrentSubCategory, setBaseIngredient, setIngredientsOff, setIngredientsOn } = filterSlice.actions;
 export default filterSlice.reducer;

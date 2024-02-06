@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -17,17 +17,36 @@ import { setCountItems } from "../redux/slices/paginationSlice";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const isMounted = useRef(false);
 
   const { items } = useSelector((state) => state.cocktailList);
-  const { category, baseIngredient } = useSelector((state) => state.filter);
+  const {
+    category,
+    subcategory,
+    baseIngredient,
+    ingredientsOff,
+    ingredientsOn,
+  } = useSelector((state) => state.filter);
   const { sorting } = useSelector((state) => state.sort);
-  const searchValue = useSelector((state) => state.search.searchValue);
+  const { searchValue } = useSelector((state) => state.search);
   const { currentPage } = useSelector((state) => state.pagination);
-  const { valueMin } = useSelector((state) => state.rangeSlider);
-  const { valueMax } = useSelector((state) => state.rangeSlider);
-  const { subcategory } = useSelector((state) => state.filter);
+  const { valueMin, valueMax } = useSelector((state) => state.rangeSlider);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isMounted.current) {
+      localStorage.setItem("category", JSON.stringify(category));
+      localStorage.setItem("subcategory", JSON.stringify(subcategory));
+      localStorage.setItem("baseIngredient", JSON.stringify(baseIngredient));
+      localStorage.setItem("ingredientsOff", JSON.stringify(ingredientsOff));
+      localStorage.setItem("ingredientsOn", JSON.stringify(ingredientsOn));
+      localStorage.setItem("currentPage", JSON.stringify(currentPage));
+      localStorage.setItem("sorting", JSON.stringify(sorting));
+    }
+
+    isMounted.current = true;
+  }, [category, subcategory, baseIngredient, ingredientsOff, ingredientsOn, currentPage, sorting]);
 
   useEffect(() => {
     axios
@@ -52,6 +71,26 @@ const Home = () => {
           ) ?? data
         );
       })
+      .then((data) =>
+        data.filter((el) => {
+          if (ingredientsOn.length > 0) {
+            return ingredientsOn.some((item) => el.Ingredients.includes(item));
+          } else {
+            return true; // Если ingredientsOn пуст, возвращаем все элементы
+          }
+        })
+      )
+      .then((data) =>
+        data.filter((el) => {
+          if (ingredientsOff.length > 0) {
+            return !ingredientsOff.some((item) =>
+              el.Ingredients.includes(item)
+            );
+          } else {
+            return true; // Если ingredientsOff пуст, возвращаем все элементы
+          }
+        })
+      )
       .then((data) =>
         data.filter((el) =>
           el.Title.toLowerCase().includes(searchValue.toLowerCase())
@@ -87,7 +126,9 @@ const Home = () => {
     currentPage,
     valueMin,
     valueMax,
-    subcategory
+    subcategory,
+    ingredientsOff,
+    ingredientsOn,
   ]);
 
   const skeletons = Array.from({ length: 3 }, (_, index) => (

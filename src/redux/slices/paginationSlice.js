@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  currentPage: 1,
+  currentPage: Number(JSON.parse(localStorage.getItem('currentPage'))) || 1,
   countItems: 100
 };
 
