@@ -1,3 +1,4 @@
+import { memo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setCurrentCategory } from '../../../redux/slices/filterSlice';
@@ -7,11 +8,19 @@ import { setCurrentPage } from '../../../redux/slices/paginationSlice';
 //styles
 import styles from './CategoriesFilter.module.scss';
 
+
 const categories = ['All', 'Alcoholic', 'Non alcoholic'];
 
-const CategoriesFilter = () => {
+const CategoriesFilter = memo(() => {
   const dispatch = useDispatch();
   const currentCategory = useSelector((state) => state.filter.category);
+
+  const onChangeCategory = useCallback((category) => {
+    console.log('ok')
+    dispatch(setCurrentCategory(category));
+    category === 'Non alcoholic' && dispatch(setSorting({ nameItem: 'popularity', nameSort: '' }));
+    dispatch(setCurrentPage(1))
+  }, []);
 
   return (
     <div className='categories'>
@@ -20,11 +29,7 @@ const CategoriesFilter = () => {
           <li
             key={index}
             className={`${styles.categoriesList__item} ${currentCategory === category ? styles.current : '' }`}
-            onClick={() => {
-              dispatch(setCurrentCategory(category));
-              category === 'Non alcoholic' && dispatch(setSorting({ nameItem: 'popularity', nameSort: '' }));
-              dispatch(setCurrentPage(1))
-            }}
+            onClick={() => onChangeCategory(category)}
           >
             {category}
           </li>
@@ -32,6 +37,6 @@ const CategoriesFilter = () => {
       </ul>
     </div>
   );
-};
+});
 
 export default CategoriesFilter;
