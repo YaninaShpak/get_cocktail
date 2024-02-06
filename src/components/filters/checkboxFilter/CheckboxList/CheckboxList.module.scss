@@ -1,0 +1,51 @@
+@import '../../../../scss/variables.scss';
+
+.title {
+  margin-bottom: 15px;
+
+  font-size: 16px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  max-height: 200px;
+
+  border-bottom: 1px solid $color_light;
+
+  overflow-y: auto;
+  // scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    background-color: $color_light;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color_accent;
+    border-radius: 2px;
+  }
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+
+  &__exclude {
+    text-decoration: line-through;
+  }
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 20px;
+  height: 20px;
+
+  cursor: pointer;
+}
