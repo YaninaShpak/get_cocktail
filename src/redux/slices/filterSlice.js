@@ -22,11 +22,11 @@ export const filterSlice = createSlice({
       state.baseIngredient = action.payload
     },
     setIngredientsOff: (state, action) => {
-      state.ingredientsOff = [...state.ingredientsOff, action.payload];
+      state.ingredientsOff = Array.isArray(action.payload) ?  [] : [...state.ingredientsOff, action.payload];
       state.ingredientsOn = state.ingredientsOn.filter((el) => el !== action.payload)
     },
     setIngredientsOn: (state, action) => {
-      state.ingredientsOn = [...state.ingredientsOn, action.payload];
+      state.ingredientsOn = Array.isArray(action.payload) ?  [] : [...state.ingredientsOn, action.payload];
       state.ingredientsOff = state.ingredientsOff.filter((el) => el !== action.payload)
     },
   }
