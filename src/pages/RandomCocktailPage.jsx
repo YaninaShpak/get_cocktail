@@ -33,7 +33,7 @@ const RandomCocktailPage = () => {
   return (
     <div className="container cocktailPage">
       {randomCocktail ? <CocktailCard item={randomCocktail}/>: <SkeletonCocktailCard />}
-      <BackButton/>
+      <BackButton to="/"/>
     </div>
   );
 };
