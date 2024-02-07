@@ -34,19 +34,15 @@ const Home = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (isMounted.current) {
-      localStorage.setItem("category", JSON.stringify(category));
-      localStorage.setItem("subcategory", JSON.stringify(subcategory));
-      localStorage.setItem("baseIngredient", JSON.stringify(baseIngredient));
-      localStorage.setItem("ingredientsOff", JSON.stringify(ingredientsOff));
-      localStorage.setItem("ingredientsOn", JSON.stringify(ingredientsOn));
-      localStorage.setItem("currentPage", JSON.stringify(currentPage));
-      localStorage.setItem("sorting", JSON.stringify(sorting));
-    }
-
-    isMounted.current = true;
-  }, [category, subcategory, baseIngredient, ingredientsOff, ingredientsOn, currentPage, sorting]);
+  function saveFiltersToLocalStorage() {
+    localStorage.setItem("category", JSON.stringify(category));
+    localStorage.setItem("subcategory", JSON.stringify(subcategory));
+    localStorage.setItem("baseIngredient", JSON.stringify(baseIngredient));
+    localStorage.setItem("ingredientsOff", JSON.stringify(ingredientsOff));
+    localStorage.setItem("ingredientsOn", JSON.stringify(ingredientsOn));
+    localStorage.setItem("currentPage", JSON.stringify(currentPage));
+    localStorage.setItem("sorting", JSON.stringify(sorting));
+  }
 
   useEffect(() => {
     axios
@@ -149,6 +145,7 @@ const Home = () => {
             title={el.Title}
             imgUrl={el.Img}
             strength={el.totalStrength}
+            onClick={saveFiltersToLocalStorage}
           />
         ));
       }
@@ -161,7 +158,7 @@ const Home = () => {
       <div className="actions-wrapper content-container__actions">
         <Search />
         <Sorting />
-        <RandomCocktailButton />
+        <RandomCocktailButton onClick={saveFiltersToLocalStorage}/>
       </div>
       <section className="cocktails content-container__cocktails">
         <h2 className="visually-hidden">Cocktails list</h2>

@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 //styles
 import styles from "./RandomCocktailButton.module.scss";
 
-const RandomCocktailButton = () => {
+const RandomCocktailButton = ({onClick}) => {
   
   return (
     <Link
       to={`random-cocktail/random`}
       className={styles.button}
+      onClick={onClick}
     >
       Random cocktail
     </Link>

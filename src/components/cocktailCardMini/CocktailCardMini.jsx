@@ -5,7 +5,7 @@ import { setCocktailID } from '../../redux/slices/cocktailListSlice';
 //styles
 import style from './CocktailCardMini.module.scss';
 
-const CocktailCardMini = ({link, title, imgUrl, strength}) => {
+const CocktailCardMini = ({link, title, imgUrl, strength, onClick}) => {
   const dispatch = useDispatch();
 
   return (
@@ -13,7 +13,10 @@ const CocktailCardMini = ({link, title, imgUrl, strength}) => {
       <Link 
         className={`${style.cardMini} link`} 
         to={`cocktail/${link}`} 
-        onClick={() => dispatch(setCocktailID(link))}
+        onClick={() => {
+          dispatch(setCocktailID(link));
+          onClick();
+        }}
       >
         <h3 className={style.cardMini__title}>{title}</h3>
         <div className={style.cardMini__img}>
