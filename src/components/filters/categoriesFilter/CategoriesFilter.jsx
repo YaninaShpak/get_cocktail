@@ -1,7 +1,7 @@
 import { memo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setCurrentCategory } from '../../../redux/slices/filterSlice';
+import { setCurrentCategory, setCurrentSubCategory, setBaseIngredient, setIngredientsOn } from '../../../redux/slices/filterSlice';
 import { setSorting } from '../../../redux/slices/sortingSlice';
 import { setCurrentPage } from '../../../redux/slices/paginationSlice';
 
@@ -16,9 +16,13 @@ const CategoriesFilter = memo(() => {
   const currentCategory = useSelector((state) => state.filter.category);
 
   const onChangeCategory = useCallback((category) => {
-    console.log('ok')
     dispatch(setCurrentCategory(category));
-    category === 'Non alcoholic' && dispatch(setSorting({ nameItem: 'popularity', nameSort: '' }));
+    if (category === 'Non alcoholic') {
+      dispatch(setSorting({ nameItem: 'popularity', nameSort: '' }));
+      dispatch(setCurrentSubCategory(null));
+    }
+    dispatch(setBaseIngredient(''));
+    dispatch(setIngredientsOn([]));
     dispatch(setCurrentPage(1))
   }, []);
 
