@@ -20,6 +20,8 @@ const ClearButton = () => {
     dispatch(setIngredientsOn([]));
     dispatch(setValueMin(3));
     dispatch(setValueMax(100));
+
+    localStorage.clear();
   }
 
   return (
