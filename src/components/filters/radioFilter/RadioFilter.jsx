@@ -6,11 +6,14 @@ import { setCurrentPage } from "../../../redux/slices/paginationSlice";
 
 //styles
 import styles from "./RadioFilter.module.scss";
+import CancelButton from "../../buttons/cancelButton/CancelButton";
 
 const alcoOptions = ['Champagne', 'Cognac', 'Gin', 'Jägermeister', 'Liqueur', 'Rum', 'Tequila', 'Vermouth', 'Vodka', 'Whiskey', 'Wine'];
 const nonAlcoOptions = ["Apple", "Banana", "Chocolate", "Coffee", "Ginger", "Juice", "Mango", "Milk", "Orange", "Soda water", "Tea", "Yoghurt"];
 
 const RadioFilter = () => {
+  const [isChecked, setIsChecked] = useState({});
+
   const valueTitle = useSelector((state) => state.filter.baseIngredient);
   const dispatch = useDispatch();
   const { category } = useSelector((state) => state.filter);
@@ -25,6 +28,8 @@ const RadioFilter = () => {
   };
 
   const onChangeRadioButton = (el) => {
+    setIsChecked({[el]: true});
+
     dispatch(setBaseIngredient(el));
     setSearchOption("");
     dispatch(setCurrentPage(1))
@@ -56,6 +61,11 @@ const RadioFilter = () => {
   useEffect(() => {
     setOptionsList(createOptionList)
   }, [createOptionList]);
+
+  const cancel = () => {
+    dispatch(setBaseIngredient(''));
+    setIsChecked({});
+  }
 
   return (
     <div className={`${styles.dropdown} ${dropdownList ? styles.show : ""} filters__dropdown`}>
@@ -93,6 +103,7 @@ const RadioFilter = () => {
                   type="radio"
                   name="ingredient"
                   id={el.toLowerCase()}
+                  checked={isChecked[el] ? true : false}
                 />
                 <div className={`options__radioIcon ${styles.radioIcon}`}></div>
                 {el}
@@ -100,6 +111,7 @@ const RadioFilter = () => {
             </li>
           ))}
         </ul>
+        <CancelButton onClick={cancel}/>
       </div>}
     </div>
   );
