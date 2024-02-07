@@ -9,6 +9,7 @@ import RadioFilter from './radioFilter/RadioFilter';
 import RangeSlider from './rangeSlider/RangeSlider';
 import SubcategoriesFilter from './subcategoriesFilter/SubcategoriesFilter';
 import CheckboxFilter from './checkboxFilter/CheckboxFilter';
+import ClearButton from '../buttons/clearButton/ClearButton';
 
 const Filters = () => {
   const { category } = useSelector((state) => state.filter);
@@ -23,6 +24,7 @@ const Filters = () => {
         {category === 'Alcoholic' && <RangeSlider/>}
         {category === 'Alcoholic' && <SubcategoriesFilter/>}
         <CheckboxFilter/>
+        <ClearButton/>
       </div>
     </section>
   );
