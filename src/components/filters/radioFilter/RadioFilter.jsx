@@ -19,7 +19,6 @@ const RadioFilter = () => {
   const [searchOption, setSearchOption] = useState(""); //найти ингредиент по вводу текста
 
   const [optionsList, setOptionsList] = useState([]);//список ингредиентов
-  const [allList, setAllList] = useState(false);//показать весь список
   
   const onChangeBaseIngredient = (e) => {
     setSearchOption(e.target.value);
@@ -50,13 +49,9 @@ const RadioFilter = () => {
     if (searchOption) {
       return options.filter((el) => el.toLowerCase().includes(searchOption.toLowerCase()))
     } else {
-      if (!allList) {
-        return options.slice(0, 6);
-      } else {
-        return options;
-      }
+      return options;
     }
-  }, [category, allList, searchOption]);
+  }, [category, searchOption]);
 
   useEffect(() => {
     setOptionsList(createOptionList)
@@ -105,7 +100,6 @@ const RadioFilter = () => {
             </li>
           ))}
         </ul>
-        {!allList && <button className={styles.dropdown__button} onClick={() => setAllList(true)}>Show all</button>}
       </div>}
     </div>
   );
