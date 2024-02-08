@@ -1,35 +1,24 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-
-//styles
-import styles from './ClearButton.module.scss';
+import React from "react";
+import { useDispatch } from "react-redux";
 
 //states
-import { setCurrentCategory, setCurrentSubCategory, setBaseIngredient, setIngredientsOff, setIngredientsOn } from '../../../redux/slices/filterSlice';
-import { setValueMin, setValueMax } from '../../../redux/slices/rangeSliderSlice';
+import { clearFiltersAndRange } from "../../../redux/actions/clearActions";
 
+import styles from "./ClearButton.module.scss";
 
 const ClearButton = () => {
   const dispatch = useDispatch();
 
   const clear = () => {
-    dispatch(setCurrentCategory('All'));
-    dispatch(setCurrentSubCategory(null));
-    dispatch(setBaseIngredient(''));
-    dispatch(setIngredientsOff([]));
-    dispatch(setIngredientsOn([]));
-    dispatch(setValueMin(3));
-    dispatch(setValueMax(100));
+    dispatch(clearFiltersAndRange());
 
-    localStorage.clear();
-  }
+    if (typeof localStorage !== 'undefined') {
+      localStorage.clear();
+    }
+  };
 
   return (
-    <button 
-      className={styles.button} 
-      type="button"
-      onClick={clear}
-    >
+    <button className={styles.button} type="button" onClick={clear}>
       Clear
     </button>
   );
