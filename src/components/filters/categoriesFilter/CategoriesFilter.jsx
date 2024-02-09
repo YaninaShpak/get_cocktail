@@ -13,7 +13,7 @@ import { setCurrentPage } from "../../../redux/slices/paginationSlice";
 
 import styles from "./CategoriesFilter.module.scss";
 
-const categories = ["All", "Alcoholic", "Non alcoholic"];
+import { categories } from "../../../data/categories";
 
 const CategoriesFilter = memo(() => {
   const dispatch = useDispatch();
