@@ -83,7 +83,7 @@ const ingredients = {
 
 const CheckboxFilter = () => {
   const dispatch = useDispatch();
-  const { category } = useSelector((state) => state.filter);
+  const { currentCategory } = useSelector((state) => state.filter);
 
   const excludeIngredients = (item) => {
     dispatch(setIngredientsOff(item));
@@ -99,7 +99,7 @@ const CheckboxFilter = () => {
   return (
     <div className={styles.checkboxFilter}>
       <h3 className={styles.title}>Add/Exclude ingredients</h3>
-      {category !== 'Non alcoholic' && <CheckboxList 
+      {currentCategory !== 'Non alcoholic' && <CheckboxList 
         title="Alcohol"
         list={ingredients.alcohol}
         onClickExclude={excludeIngredients}

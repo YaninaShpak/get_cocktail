@@ -16,7 +16,7 @@ const RadioFilter = () => {
 
   const valueTitle = useSelector((state) => state.filter.baseIngredient);
   const dispatch = useDispatch();
-  const { category } = useSelector((state) => state.filter);
+  const { currentCategory } = useSelector((state) => state.filter);
 
   const [dropdownList, setDropdownList] = useState(false); //показать список ингредиентов
   const [searchOption, setSearchOption] = useState(""); //найти ингредиент по вводу текста
@@ -43,9 +43,9 @@ const RadioFilter = () => {
   const createOptionList = useCallback(() => {
     let options;
 
-    if (category === 'Alcoholic') {
+    if (currentCategory === 'Alcoholic') {
       options = alcoOptions;
-    } else if (category === 'Non alcoholic') {
+    } else if (currentCategory === 'Non alcoholic') {
       options = nonAlcoOptions;
     } else {
       options = alcoOptions.concat(nonAlcoOptions);
@@ -56,7 +56,7 @@ const RadioFilter = () => {
     } else {
       return options;
     }
-  }, [category, searchOption]);
+  }, [currentCategory, searchOption]);
 
   useEffect(() => {
     setOptionsList(createOptionList)

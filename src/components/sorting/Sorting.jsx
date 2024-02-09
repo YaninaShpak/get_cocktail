@@ -14,7 +14,7 @@ const sortList = [
 
 const Sorting = () => {
   const sort = useSelector((state) => state.sort.sorting);
-  const { category } = useSelector((state) => state.filter); 
+  const { currentCategory } = useSelector((state) => state.filter); 
   const dispatch = useDispatch();
 
   const [showSort, setShowSort] = useState(false);
@@ -37,14 +37,14 @@ const Sorting = () => {
   const changeSortList = useCallback(() => {
     let newSortList;
     
-    if (category === 'Non alcoholic') {
+    if (currentCategory === 'Non alcoholic') {
       newSortList = sortList.filter((el) => !el.nameItem.includes('strength'));
     } else {
       newSortList = sortList;
     }
 
     return newSortList;
-  }, [category]);
+  }, [currentCategory]);
 
   return (
     <div

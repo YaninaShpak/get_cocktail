@@ -21,8 +21,8 @@ const Home = () => {
 
   const { items } = useSelector((state) => state.cocktailList);
   const {
-    category,
-    subcategory,
+    currentCategory,
+    currentSubCategory,
     baseIngredient,
     ingredientsOff,
     ingredientsOn,
@@ -35,8 +35,8 @@ const Home = () => {
   const dispatch = useDispatch();
 
   function saveFiltersToLocalStorage() {
-    localStorage.setItem("category", JSON.stringify(category));
-    localStorage.setItem("subcategory", JSON.stringify(subcategory));
+    localStorage.setItem("currentCategory", JSON.stringify(currentCategory));
+    localStorage.setItem("currentSubCategory", JSON.stringify(currentSubCategory));
     localStorage.setItem("baseIngredient", JSON.stringify(baseIngredient));
     localStorage.setItem("ingredientsOff", JSON.stringify(ingredientsOff));
     localStorage.setItem("ingredientsOn", JSON.stringify(ingredientsOn));
@@ -52,9 +52,9 @@ const Home = () => {
         }&order=${sorting.order ? sorting.order : ""}`
       )
       .then(({ data }) =>
-        category !== "All"
+        currentCategory !== "All"
           ? data.filter(
-              (el) => el.Alcoholic.toLowerCase() === category.toLowerCase()
+              (el) => el.Alcoholic.toLowerCase() === currentCategory.toLowerCase()
             )
           : data
       )
@@ -93,14 +93,14 @@ const Home = () => {
         )
       )
       .then((data) => {
-        return subcategory === "low alcohol"
+        return currentSubCategory === "low alcohol"
           ? data.filter((el) => Number(el.totalStrength) <= 20)
-          : subcategory === "strong"
+          : currentSubCategory === "strong"
           ? data.filter((el) => Number(el.totalStrength) > 20)
           : data;
       })
       .then((data) =>
-        category === "Alcoholic"
+        currentCategory === "Alcoholic"
           ? data.filter(
               (el) =>
                 Number(el.totalStrength) >= valueMin &&
@@ -115,14 +115,14 @@ const Home = () => {
         setIsLoading(false);
       });
   }, [
-    category,
+    currentCategory,
     baseIngredient,
     sorting,
     searchValue,
     currentPage,
     valueMin,
     valueMax,
-    subcategory,
+    currentSubCategory,
     ingredientsOff,
     ingredientsOn,
   ]);

@@ -12,7 +12,7 @@ import CheckboxFilter from './checkboxFilter/CheckboxFilter';
 import ClearButton from '../buttons/clearButton/ClearButton';
 
 const Filters = () => {
-  const { category } = useSelector((state) => state.filter);
+  const { currentCategory } = useSelector((state) => state.filter);
   return (
     <section className={`${styles.filters} content-container__filters`}>
       <div className={styles.filters__titleWrapper}>
@@ -21,8 +21,8 @@ const Filters = () => {
       <div className={styles.filters__wrapper}>
         <CategoriesFilter />
         <RadioFilter />
-        {category === 'Alcoholic' && <RangeSlider/>}
-        {category === 'Alcoholic' && <SubcategoriesFilter/>}
+        {currentCategory === 'Alcoholic' && <RangeSlider/>}
+        {currentCategory === 'Alcoholic' && <SubcategoriesFilter/>}
         <CheckboxFilter/>
         <ClearButton/>
       </div>

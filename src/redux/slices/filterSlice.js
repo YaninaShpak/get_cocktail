@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  category: JSON.parse(localStorage.getItem('category')) || 'All',
-  subcategory: JSON.parse(localStorage.getItem('subcategory')),
+  currentCategory: JSON.parse(localStorage.getItem('currentCategory')) || 'All',
+  currentSubCategory: JSON.parse(localStorage.getItem('currentSubCategory')),
   baseIngredient: JSON.parse(localStorage.getItem('baseIngredient')) || '',
   ingredientsOff: JSON.parse(localStorage.getItem('ingredientsOff')) || [],
   ingredientsOn: JSON.parse(localStorage.getItem('ingredientsOn')) || []
@@ -13,10 +13,10 @@ export const filterSlice = createSlice({
   initialState,
   reducers: {
     setCurrentCategory: (state, action) => {
-      state.category = action.payload
+      state.currentCategory = action.payload
     },
     setCurrentSubCategory: (state, action) => {
-      state.subcategory = action.payload
+      state.currentSubCategory = action.payload
     },
     setBaseIngredient: (state, action) => {
       state.baseIngredient = action.payload

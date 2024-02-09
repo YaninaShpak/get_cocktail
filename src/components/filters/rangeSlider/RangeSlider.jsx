@@ -15,7 +15,7 @@ const RangeSlider = () => {
   //values for range
   const { valueMin } = useSelector((state) => state.rangeSlider);
   const { valueMax } = useSelector((state) => state.rangeSlider);
-  const { subcategory } = useSelector((state) => state.filter);
+  const { currentSubCategory } = useSelector((state) => state.filter);
   const dispatch = useDispatch();
 
   //values for input namber
@@ -33,7 +33,7 @@ const RangeSlider = () => {
   const max = useRef(100);
 
   useEffect(() => {
-    if (subcategory === "low alcohol") {
+    if (currentSubCategory === "low alcohol") {
       max.current = 20;
 
       setValueNumMin(3);
@@ -56,7 +56,7 @@ const RangeSlider = () => {
       setPercentMin(0);
       setPercentMax(100);
     }
-  }, [subcategory]);
+  }, [currentSubCategory]);
 
   //change progress bar
   const debonceHandleRangeMin = useCallback(

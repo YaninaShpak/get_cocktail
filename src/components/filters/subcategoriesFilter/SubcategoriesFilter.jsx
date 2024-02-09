@@ -10,7 +10,7 @@ import styles from './SubcategoriesFilter.module.scss';
 
 const SubcategoriesFilter = () => {
   const subcategories = ['low alcohol', 'strong'];
-  const {subcategory} = useSelector((state) => state.filter);
+  const {currentSubCategory} = useSelector((state) => state.filter);
   const dispatch = useDispatch();
 
   return (
@@ -19,7 +19,7 @@ const SubcategoriesFilter = () => {
       <ul className={`${styles.list} list-reset`}>
         {subcategories.map((item) => 
         <li 
-          className={`${styles.listItem} ${item === subcategory ? styles.current : ''}`}
+          className={`${styles.listItem} ${item === currentSubCategory ? styles.current : ''}`}
           key={item}
           onClick={() => dispatch(setCurrentSubCategory(item))}
         >
