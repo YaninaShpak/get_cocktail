@@ -1,28 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-//styles
 import styles from "./CheckboxList.module.scss";
 
 const CheckboxList = ({ title, list, onClickExclude, onClickAdd }) => {
-  const [excludedItems, setExcludedItems] = useState(reducer() || {});
+  const [excludedItems, setExcludedItems] = useState({});
 
-  function reducer() {
-    if (JSON.parse(localStorage.getItem('ingredientsOff'))) {
-      const arr = JSON.parse(localStorage.getItem('ingredientsOff'));
-      return arr.reduce((acc, cur) => {
-        if(!acc[cur]) {
-          acc[cur] = true;
-        }
-        
-        return acc;
-      }, {});
-    }
-  }
+  //чтобы сохранялось зачеркивание, если есть исключенные ингредиенты в ЛС
+  useEffect(() => {
+    const excludedItemsFromLS = JSON.parse(localStorage.getItem('ingredientsOff')) || [];
+    const excludedItemsState = excludedItemsFromLS.reduce((acc, cur) => {
+      acc[cur] = true;
+      return acc;
+    }, {});
+    setExcludedItems(excludedItemsState);
+  }, []);
 
   const handleExcludeClick = (item) => {
     onClickExclude(item);
     setExcludedItems(prev => {
-      
       return { ...prev, [item]: true }
     });
   };
@@ -30,7 +25,6 @@ const CheckboxList = ({ title, list, onClickExclude, onClickAdd }) => {
   const handleAddClick = (item) => {
     onClickAdd(item);
     setExcludedItems(prev => {
-      
       return { ...prev, [item]: false }
     });
   };
@@ -46,6 +40,7 @@ const CheckboxList = ({ title, list, onClickExclude, onClickAdd }) => {
             <button
               className={`${styles.button} ${styles.button__minus}`}
               type="button"
+              aria-label={`Exclude ${item}`}
               onClick={() => { 
                 handleExcludeClick(item)
               }}
@@ -56,6 +51,7 @@ const CheckboxList = ({ title, list, onClickExclude, onClickAdd }) => {
             <button
               className={`${styles.button} ${styles.button__plus}`}
               type="button"
+              aria-label={`Add ${item}`}
               onClick={() => handleAddClick(item)}
             >
               +
