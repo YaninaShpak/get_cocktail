@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 //libraries
 import axios from "axios";
@@ -12,6 +13,7 @@ import BackButton from "../components/buttons/BackButton/BackButton";
 import { setCocktailID } from "../redux/slices/cocktailListSlice";
 
 const RandomCocktailPage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [randomCocktail, setRandomCocktail] = useState(null);
 
@@ -25,9 +27,11 @@ const RandomCocktailPage = () => {
     axios
       .get(`https://64f762d19d775408495385e6.mockapi.io/items`)
       .then(({data}) => {
-        setRandomCocktail(data[getRandomIntInclusive(0, 99)]);
-        dispatch(setCocktailID(randomCocktail?.id))}
-      )
+        const selectedCocktail = data[getRandomIntInclusive(0, 99)];
+        setRandomCocktail(selectedCocktail);
+        dispatch(setCocktailID(selectedCocktail?.Title));
+        navigate(`/random-cocktail/random/${selectedCocktail?.Title}`);
+      })
   }, []);
 
   return (

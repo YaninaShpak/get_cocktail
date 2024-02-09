@@ -17,7 +17,7 @@ function App() {
         <main className="main-content">
           <Routes>
             <Route path="/" element={<Home/>}/>
-            <Route path="random-cocktail/random" element={<RandomCocktailPage/>}/>
+            <Route path="random-cocktail/random/:title" element={<RandomCocktailPage/>}/>
             <Route path="cocktail/:id" element={<CocktailPage/>}/>
           </Routes>
         </main>
