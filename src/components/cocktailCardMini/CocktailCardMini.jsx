@@ -1,22 +1,27 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
+
 import { useDispatch } from 'react-redux';
 import { setCocktailID } from '../../redux/slices/cocktailListSlice';
 
-//styles
 import style from './CocktailCardMini.module.scss';
 
-const CocktailCardMini = ({link, title, imgUrl, strength, onClick}) => {
+const CocktailCardMini = memo((props) => {
+  const {link, title, imgUrl, strength, onClick} = props;
+  
   const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(setCocktailID(link));
+    if (onClick) onClick();
+  }
 
   return (
     <li>
       <Link 
         className={`${style.cardMini} link`} 
         to={`cocktail/${link}`} 
-        onClick={() => {
-          dispatch(setCocktailID(link));
-          onClick();
-        }}
+        onClick={handleClick}
       >
         <h3 className={style.cardMini__title}>{title}</h3>
         <div className={style.cardMini__img}>
@@ -28,6 +33,6 @@ const CocktailCardMini = ({link, title, imgUrl, strength, onClick}) => {
       </Link>
     </li>
   );
-};
+});
 
 export default CocktailCardMini;
