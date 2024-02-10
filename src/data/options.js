@@ -1,0 +1,27 @@
+export const alcoOptions = [
+  "Champagne",
+  "Cognac",
+  "Gin",
+  "Jägermeister",
+  "Liqueur",
+  "Rum",
+  "Tequila",
+  "Vermouth",
+  "Vodka",
+  "Whiskey",
+  "Wine",
+];
+export const nonAlcoOptions = [
+  "Apple",
+  "Banana",
+  "Chocolate",
+  "Coffee",
+  "Ginger",
+  "Juice",
+  "Mango",
+  "Milk",
+  "Orange",
+  "Soda water",
+  "Tea",
+  "Yoghurt",
+];
