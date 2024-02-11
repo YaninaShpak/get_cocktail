@@ -1,23 +1,9 @@
 @import '../../../scss/variables.scss';
 
-.priceInput {
+.numberInput {
   display: flex;
   width: 100%;
   margin-bottom: 20px;
-}
-
-.field {
-  display: flex;
-
-  input {
-    -moz-appearance: textfield;
-
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      appearance: none;
-      margin: 0;
-    }
-  }
 }
 
 .slider {
