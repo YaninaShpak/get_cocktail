@@ -1,6 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
+import { setItems } from "../redux/slices/cocktailListSlice";
+import { setCountItems } from "../redux/slices/paginationSlice";
+
+import axios from "axios";
 
 //components
 import CocktailCardMini from "../components/cocktailCardMini/CocktailCardMini";
@@ -11,13 +15,8 @@ import Search from "../components/search/Search";
 import RandomCocktailButton from "../components/buttons/RandomCocktailButton/RandomCocktailButton";
 import PaginationComponent from "../components/pagination/PaginationComponent";
 
-//states
-import { setItems } from "../redux/slices/cocktailListSlice";
-import { setCountItems } from "../redux/slices/paginationSlice";
-
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const isMounted = useRef(false);
 
   const { items } = useSelector((state) => state.cocktailList);
   const {
@@ -36,7 +35,10 @@ const Home = () => {
 
   function saveFiltersToLocalStorage() {
     localStorage.setItem("currentCategory", JSON.stringify(currentCategory));
-    localStorage.setItem("currentSubCategory", JSON.stringify(currentSubCategory));
+    localStorage.setItem(
+      "currentSubCategory",
+      JSON.stringify(currentSubCategory)
+    );
     localStorage.setItem("baseIngredient", JSON.stringify(baseIngredient));
     localStorage.setItem("ingredientsOff", JSON.stringify(ingredientsOff));
     localStorage.setItem("ingredientsOn", JSON.stringify(ingredientsOn));
@@ -54,7 +56,8 @@ const Home = () => {
       .then(({ data }) =>
         currentCategory !== "All"
           ? data.filter(
-              (el) => el.Alcoholic.toLowerCase() === currentCategory.toLowerCase()
+              (el) =>
+                el.Alcoholic.toLowerCase() === currentCategory.toLowerCase()
             )
           : data
       )
@@ -158,7 +161,7 @@ const Home = () => {
       <div className="actions-wrapper content-container__actions">
         <Search />
         <Sorting />
-        <RandomCocktailButton onClick={saveFiltersToLocalStorage}/>
+        <RandomCocktailButton onClick={saveFiltersToLocalStorage} />
       </div>
       <section className="cocktails content-container__cocktails">
         <h2 className="visually-hidden">Cocktails list</h2>
