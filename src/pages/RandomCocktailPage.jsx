@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
-//libraries
+import { useDispatch } from "react-redux";
+
 import axios from "axios";
 
 //components
@@ -26,18 +26,22 @@ const RandomCocktailPage = () => {
   useEffect(() => {
     axios
       .get(`https://64f762d19d775408495385e6.mockapi.io/items`)
-      .then(({data}) => {
+      .then(({ data }) => {
         const selectedCocktail = data[getRandomIntInclusive(0, 99)];
         setRandomCocktail(selectedCocktail);
         dispatch(setCocktailID(selectedCocktail?.Title));
         navigate(`/random-cocktail/random/${selectedCocktail?.Title}`);
-      })
+      });
   }, []);
 
   return (
     <div className="container cocktailPage">
-      {randomCocktail ? <CocktailCard item={randomCocktail}/>: <SkeletonCocktailCard />}
-      <BackButton to="/"/>
+      {randomCocktail ? (
+        <CocktailCard item={randomCocktail} />
+      ) : (
+        <SkeletonCocktailCard />
+      )}
+      <BackButton to="/" />
     </div>
   );
 };
