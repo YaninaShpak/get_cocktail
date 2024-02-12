@@ -14,6 +14,6 @@ export const store = configureStore({
     search: searchSlice,
     cocktailList: cocktailListSlice,
     pagination: paginationSlice,
-    rangeSlider: rangeSliderSlice
+    rangeSlider: rangeSliderSlice,
   },
 });
