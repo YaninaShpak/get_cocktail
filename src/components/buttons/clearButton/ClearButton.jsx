@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { setCurrentPage } from "../../../redux/slices/paginationSlice";
 
 //states
 import { clearFiltersAndRange } from "../../../redux/actions/clearActions";
@@ -11,6 +12,7 @@ const ClearButton = () => {
 
   const clear = () => {
     dispatch(clearFiltersAndRange());
+    dispatch(setCurrentPage(1));
 
     if (typeof localStorage !== 'undefined') {
       localStorage.clear();
