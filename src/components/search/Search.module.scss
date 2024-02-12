@@ -21,18 +21,3 @@
     border: 2px solid rgba(0, 0, 0, 0.5);
   }
 }
-
-.iconClear {
-  position: absolute;
-
-  top: 50%;
-  transform: translateY(-50%);
-  right: 15px;
-
-  opacity: 0.3;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.8;
-  }
-}
