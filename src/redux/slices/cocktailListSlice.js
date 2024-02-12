@@ -2,20 +2,20 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: [],
-  cocktailID: ''
+  cocktailID: "",
 };
 
 export const cocktailListSlice = createSlice({
-  name: 'cocktailList',
+  name: "cocktailList",
   initialState,
   reducers: {
     setItems: (state, action) => {
-      state.items = action.payload
+      state.items = action.payload;
     },
     setCocktailID: (state, action) => {
-      state.cocktailID = action.payload
-    }
-  }
+      state.cocktailID = action.payload;
+    },
+  },
 });
 
 export const { setItems, setCocktailID } = cocktailListSlice.actions;

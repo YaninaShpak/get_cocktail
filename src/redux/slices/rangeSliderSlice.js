@@ -6,16 +6,16 @@ const initialState = {
 };
 
 export const rangeSliderSlice = createSlice({
-  name: 'rangeSlider',
+  name: "rangeSlider",
   initialState,
   reducers: {
     setValueMin: (state, action) => {
-      state.valueMin = action.payload
+      state.valueMin = action.payload;
     },
     setValueMax: (state, action) => {
-      state.valueMax = action.payload
+      state.valueMax = action.payload;
     },
-  }
+  },
 });
 
 export const { setValueMin, setValueMax } = rangeSliderSlice.actions;
