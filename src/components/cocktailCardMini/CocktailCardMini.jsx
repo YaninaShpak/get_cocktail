@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
@@ -11,13 +11,20 @@ const CocktailCardMini = memo((props) => {
   
   const dispatch = useDispatch();
 
+  const background = useRef();
+
+  useEffect(() => {
+    const url = `url("${imgUrl}")`;
+    background.current.style.setProperty("background-image", url);
+  }, [imgUrl]);
+  
   const handleClick = () => {
     dispatch(setCocktailID(link));
     if (onClick) onClick();
   }
 
   return (
-    <li>
+    <li className={style.root}>
       <Link 
         className={`${style.cardMini} link`} 
         to={`cocktail/${link}`} 
@@ -30,7 +37,9 @@ const CocktailCardMini = memo((props) => {
         <div className="card__info">
           {strength && <p>Strength: <span>{strength} %</span></p>}
         </div>
+        
       </Link>
+      <div className={style.background} ref={background}></div>
     </li>
   );
 });
