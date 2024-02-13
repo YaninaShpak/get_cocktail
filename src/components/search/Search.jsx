@@ -18,7 +18,7 @@ const Search = () => {
 
   const updatedSearchValue = useCallback(
     debounce((str) => {
-      dispatch(setSearchValue(str));
+      dispatch(setSearchValue(str.trim()));
       dispatch(setCurrentPage(1));
     }, 800),
     []
