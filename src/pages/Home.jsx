@@ -15,6 +15,16 @@ import Search from "../components/search/Search";
 import RandomCocktailButton from "../components/buttons/RandomCocktailButton/RandomCocktailButton";
 import PaginationComponent from "../components/pagination/PaginationComponent";
 
+import {
+  filterCategory,
+  filterBaseIngredient,
+  filterIncludeIngredients,
+  filterExcludeIngredients,
+  search,
+  filterSubCategory,
+  filterTotalStrength
+} from "../utils/filters";
+
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -48,73 +58,30 @@ const Home = () => {
 
   const getCocktails = async () => {
     try {
-      const res = await axios.get(
-        `https://64f762d19d775408495385e6.mockapi.io/cocktails?&sortBy=${
-          sorting.nameSort
-        }&order=${sorting.order ? sorting.order : ""}`
-      )
-      .then(({ data }) =>
-        currentCategory !== "All"
-          ? data.filter(
-              (el) =>
-                el.Alcoholic.toLowerCase() === currentCategory.toLowerCase()
-            )
-          : data
-      )
-      .then((data) => {
-        return (
-          data.filter((item) =>
-            item.Ingredients.some((el) =>
-              el.toLowerCase().includes(baseIngredient.toLowerCase())
-            )
-          ) ?? data
-        );
-      })
-      .then((data) => {
-        return ingredientsOn.length > 0
-          ? data.filter((el) =>
-              ingredientsOn.some((item) => el.Ingredients.includes(item))
-            )
-          : data;
-      })
-      .then((data) => {
-        return ingredientsOff.length > 0
-          ? data.filter((el) =>
-              !ingredientsOff.some((item) => el.Ingredients.includes(item))
-            )
-          : data;
-      })
-      .then((data) =>
-        data.filter((el) =>
-          el.Title.toLowerCase().includes(searchValue.toLowerCase())
+      const res = await axios
+        .get(
+          `https://64f762d19d775408495385e6.mockapi.io/cocktails?&sortBy=${
+            sorting.nameSort
+          }&order=${sorting.order ? sorting.order : ""}`
         )
-      )
-      .then((data) => {
-        return currentSubCategory === "low alcohol"
-          ? data.filter((el) => Number(el.totalStrength) <= 20)
-          : currentSubCategory === "strong"
-          ? data.filter((el) => Number(el.totalStrength) > 20)
-          : data;
-      })
-      .then((data) =>
-        currentCategory === "Alcoholic"
-          ? data.filter(
-              (el) =>
-                Number(el.totalStrength) >= valueMin &&
-                Number(el.totalStrength) <= valueMax
-            )
-          : data
-      );
-      
+        .then(({ data }) => filterCategory(currentCategory, "All", data))
+        .then((data) => filterBaseIngredient(baseIngredient, data))
+        .then((data) => filterIncludeIngredients(ingredientsOn, data))
+        .then((data) => filterExcludeIngredients(ingredientsOff, data))
+        .then((data) => search(searchValue, data))
+        .then((data) => filterSubCategory(currentSubCategory, data))
+        .then((data) => filterTotalStrength(currentCategory, valueMin, valueMax, data)
+        );
+
       dispatch(setCountItems(res.length));
-      let page = res.slice(currentPage * 9 - 9, currentPage * 9);
+      const page = res.slice(currentPage * 9 - 9, currentPage * 9);
       dispatch(setItems(page));
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     getCocktails();
