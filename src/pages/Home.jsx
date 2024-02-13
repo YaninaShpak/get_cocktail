@@ -46,10 +46,10 @@ const Home = () => {
     localStorage.setItem("sorting", JSON.stringify(sorting));
   }
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://64f762d19d775408495385e6.mockapi.io/items?&sortBy=${
+  const getCocktails = async () => {
+    try {
+      const res = await axios.get(
+        `https://64f762d19d775408495385e6.mockapi.io/cocktails?&sortBy=${
           sorting.nameSort
         }&order=${sorting.order ? sorting.order : ""}`
       )
@@ -70,26 +70,20 @@ const Home = () => {
           ) ?? data
         );
       })
-      .then((data) =>
-        data.filter((el) => {
-          if (ingredientsOn.length > 0) {
-            return ingredientsOn.some((item) => el.Ingredients.includes(item));
-          } else {
-            return true; // Если ingredientsOn пуст, возвращаем все элементы
-          }
-        })
-      )
-      .then((data) =>
-        data.filter((el) => {
-          if (ingredientsOff.length > 0) {
-            return !ingredientsOff.some((item) =>
-              el.Ingredients.includes(item)
-            );
-          } else {
-            return true; // Если ingredientsOff пуст, возвращаем все элементы
-          }
-        })
-      )
+      .then((data) => {
+        return ingredientsOn.length > 0
+          ? data.filter((el) =>
+              ingredientsOn.some((item) => el.Ingredients.includes(item))
+            )
+          : data;
+      })
+      .then((data) => {
+        return ingredientsOff.length > 0
+          ? data.filter((el) =>
+              !ingredientsOff.some((item) => el.Ingredients.includes(item))
+            )
+          : data;
+      })
       .then((data) =>
         data.filter((el) =>
           el.Title.toLowerCase().includes(searchValue.toLowerCase())
@@ -110,13 +104,20 @@ const Home = () => {
                 Number(el.totalStrength) <= valueMax
             )
           : data
-      )
-      .then((data) => {
-        dispatch(setCountItems(data.length));
-        let page = data.slice(currentPage * 9 - 9, currentPage * 9);
-        dispatch(setItems(page));
-        setIsLoading(false);
-      });
+      );
+      
+      dispatch(setCountItems(res.length));
+      let page = res.slice(currentPage * 9 - 9, currentPage * 9);
+      dispatch(setItems(page));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getCocktails();
   }, [
     currentCategory,
     baseIngredient,
