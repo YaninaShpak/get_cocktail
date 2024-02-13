@@ -15,7 +15,7 @@ const BackButton = ({to}) => {
   };
 
   return (
-    <button className={`${styles.BackButton} link`} onClick={handleBack}>
+    <button className={styles.BackButton} onClick={handleBack}>
       <span className="visually-hidden">Back</span>
       <span className="material-icons">arrow_back</span>
     </button>
