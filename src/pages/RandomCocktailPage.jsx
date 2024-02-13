@@ -25,7 +25,7 @@ const RandomCocktailPage = () => {
 
   useEffect(() => {
     axios
-      .get(`https://64f762d19d775408495385e6.mockapi.io/items`)
+      .get(`https://64f762d19d775408495385e6.mockapi.io/cocktails`)
       .then(({ data }) => {
         const selectedCocktail = data[getRandomIntInclusive(0, 99)];
         setRandomCocktail(selectedCocktail);
