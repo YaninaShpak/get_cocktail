@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import styles from "./CheckboxList.module.scss";
 
 const CheckboxList = ({ title, list, onClickExclude, onClickAdd }) => {
+  const {ingredientsOff} = useSelector((state) => state.filter);
   const [excludedItems, setExcludedItems] = useState({});
 
   //чтобы сохранялось зачеркивание, если есть исключенные ингредиенты в ЛС
   useEffect(() => {
-    const excludedItemsFromLS = JSON.parse(localStorage.getItem('ingredientsOff')) || [];
+    const excludedItemsFromLS = ingredientsOff || [];
     const excludedItemsState = excludedItemsFromLS.reduce((acc, cur) => {
       acc[cur] = true;
       return acc;
     }, {});
     setExcludedItems(excludedItemsState);
-  }, []);
+  }, [ingredientsOff]);
 
   const handleExcludeClick = (item) => {
     onClickExclude(item);
