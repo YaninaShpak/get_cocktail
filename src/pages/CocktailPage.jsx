@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 //components
 import CocktailCard from "../components/cocktailCard/CocktailCard";
 import SkeletonCocktailCard from "../components/cocktailCard/SkeletonCocktailCard";
-import BackButton from "../components/buttons/BackButton/BackButton";
+import BackButton from "../components/buttons/backButton/BackButton";
 
 const CocktailPage = () => {
   const { items, cocktailID } = useSelector((state) => state.cocktailList);

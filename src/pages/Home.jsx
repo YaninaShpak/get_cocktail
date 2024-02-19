@@ -12,7 +12,7 @@ import Filters from "../components/filters/Filters";
 import SkeletonCocktailCardMini from "../components/cocktailCardMini/SkeletonCocktailCardMini";
 import Sorting from "../components/sorting/Sorting";
 import Search from "../components/search/Search";
-import RandomCocktailButton from "../components/buttons/RandomCocktailButton/RandomCocktailButton";
+import RandomCocktailButton from "../components/buttons/randomCocktailButton/RandomCocktailButton";
 import PaginationComponent from "../components/pagination/PaginationComponent";
 
 import {
@@ -22,7 +22,7 @@ import {
   filterExcludeIngredients,
   search,
   filterSubCategory,
-  filterTotalStrength
+  filterTotalStrength,
 } from "../utils/filters";
 
 const Home = () => {
@@ -58,7 +58,7 @@ const Home = () => {
 
   const getCocktails = async () => {
     try {
-      const res = await axios
+      const response = await axios
         .get(
           `https://64f762d19d775408495385e6.mockapi.io/cocktails?&sortBy=${
             sorting.nameSort
@@ -70,11 +70,12 @@ const Home = () => {
         .then((data) => filterExcludeIngredients(ingredientsOff, data))
         .then((data) => search(searchValue, data))
         .then((data) => filterSubCategory(currentSubCategory, data))
-        .then((data) => filterTotalStrength(currentCategory, valueMin, valueMax, data)
+        .then((data) =>
+          filterTotalStrength(currentCategory, valueMin, valueMax, data)
         );
 
-      dispatch(setCountItems(res.length));
-      const page = res.slice(currentPage * 9 - 9, currentPage * 9);
+      dispatch(setCountItems(response.length));
+      const page = response.slice(currentPage * 9 - 9, currentPage * 9);
       dispatch(setItems(page));
     } catch (error) {
       console.log(error);
@@ -123,17 +124,17 @@ const Home = () => {
     }
   };
   return (
-    <div className="container content-container">
+    <div className="container contentContainer">
       <h1 className="visually-hidden">Cocktail choice</h1>
       <Filters />
-      <div className="actions-wrapper content-container__actions">
+      <div className="actionsWrapper contentContainer__actions">
         <Search />
         <Sorting />
         <RandomCocktailButton onClick={saveFiltersToLocalStorage} />
       </div>
-      <section className="cocktails content-container__cocktails">
+      <section className="cocktails contentContainer__cocktails">
         <h2 className="visually-hidden">Cocktails list</h2>
-        <ul className="cocktails-list list-reset cocktails__list">
+        <ul className="cocktailsList list-reset cocktails__list">
           {isItems()}
         </ul>
         <PaginationComponent />
