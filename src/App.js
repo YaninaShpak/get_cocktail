@@ -8,6 +8,7 @@ import RandomCocktailPage from "./pages/RandomCocktailPage";
 
 //styles
 import "./scss/App.scss";
+import Footer from "./components/footer/Footer";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="cocktail/:id" element={<CocktailPage />} />
           </Routes>
         </main>
+        <Footer/>
       </div>
     </div>
   );
