@@ -1,0 +1,11 @@
+@import '../../scss/variables.scss';
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px 0;
+
+  background: #272626;
+}
