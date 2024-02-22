@@ -9,6 +9,7 @@
 
 .dropdown__container {
   position: relative;
+  padding: 10px 20px;
 }
 
 .dropdownBtn {
@@ -32,11 +33,6 @@
 }
 
 .dropdown__title {
-  padding: 5px 20px;
-
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 2;
   letter-spacing: 0.05em;
   color: $color_accent;
   cursor: pointer;
@@ -64,7 +60,7 @@
 }
 
 .dropdown__searchInput {
-  padding: 5px 20px;
+  padding: 5px 20px 5px 5px;
   padding-right: 30px;
   width: 100%;
 
@@ -79,7 +75,7 @@
   outline: none;
 }
 
-.options {
+.dropdown .options {
   display: flex;
   flex-direction: column;
   row-gap: 12px;
@@ -124,8 +120,6 @@
   display: flex;
   align-items: center;
   column-gap: 10px;
-
-  font-size: 20px;
 
   cursor: pointer;
 }
