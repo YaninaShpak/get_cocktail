@@ -17,11 +17,11 @@ body {
 }
 
 body {
-  font-family: 'Nunito', Helvetica, sans-serif;
+  font-family: "Nunito", Helvetica, sans-serif;
   font-weight: 400;
   color: white;
   font-size: 14px;
-  // line-height: calc(17 / 14);
+  line-height: calc(17 / 14);
   background: $color_basic;
   overflow-x: hidden;
 }
@@ -31,6 +31,7 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   // overflow: hidden;
 }
 
@@ -41,14 +42,22 @@ main {
 .container {
   margin: 0 auto;
   padding: 0 40px;
-  max-width: 1440px;
+  max-width: #{$maxWidth + px};
+
+  @media (max-width: #{$middleWidth + px}) {
+    padding: 0 30px;
+  }
+
+  @media (max-width: #{$minWidth + px}) {
+    padding: 0 10px;
+  }
 }
 
 body .material-icons {
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
+  font-size: 24px; /* Preferred icon size */
   display: inline-block;
   line-height: 1;
   text-transform: none;
@@ -66,7 +75,7 @@ body .material-icons {
   -moz-osx-font-smoothing: grayscale;
 
   /* Support for IE. */
-  font-feature-settings: 'liga';
+  font-feature-settings: "liga";
 }
 
 .visually-hidden {

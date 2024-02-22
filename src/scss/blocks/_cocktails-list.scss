@@ -1,9 +1,9 @@
-.cocktails-list {
+.cocktailsList {
   display: grid;
-  grid-template-columns: repeat(3, 260px);
+  grid-template-columns: repeat(auto-fill, minmax(287px, 1fr));
   align-items: stretch;
-  column-gap: 40px;
-  row-gap: 20px;
+  @include adaptiv-value(column-gap, 40, 10, 1);
+  row-gap: 24px;
 
   margin-bottom: 40px;
 }

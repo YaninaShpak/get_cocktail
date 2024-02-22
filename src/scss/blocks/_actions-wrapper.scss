@@ -1,6 +1,10 @@
-.actions-wrapper {
+
+
+.actionsWrapper {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  column-gap: 50px;
+  justify-content: space-around;
+  // @include adaptiv-value(column-gap, 50, 10, 1);
+  flex-wrap: wrap;
 }

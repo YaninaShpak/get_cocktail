@@ -1,9 +1,10 @@
-.content-container {
+.contentContainer {
   display: grid;
-  grid-template-columns: auto 950px;
-  grid-template-rows: 100px auto;
-  gap: 0px 40px;
-  grid-auto-flow: row;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 100px 1fr;
+  gap: 0px 48px;
+  // grid-auto-flow: row;
+  grid-auto-rows: auto;
   grid-template-areas:
     "Filters Actions"
     "Filters List";
@@ -14,9 +15,23 @@
 
   &__actions {
     grid-area: Actions;
+
+    @media (max-width: #{$minWidth + px}) {
+      order: -1;
+    }
   }
 
   &__cocktails {
     grid-area: List;
+  }
+  
+  @media (max-width: #{$maxWidthContainer + px}) {
+    grid-template-rows: calc(200px + (100 - 200) * ((100vw - 320px) / (1280 - 320))) 1fr;
+  }
+
+  @media (max-width: #{$minWidth + px}) {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
   }
 }
