@@ -6,8 +6,10 @@
   align-items: center;
   row-gap: 20px;
 
-  padding: 24px;
-  margin-bottom: 20px;
+  padding: 24px 0;
+  margin-bottom: 24px;
+
+  text-align: center;
   
   background: #1b1919;
 }
@@ -15,5 +17,5 @@
 .mainHeader__title {
   color: $color_accent;
   font-family: 'Signika Negative', sans-serif;
-  font-size: 60px;
+  font-size: 40px;
 }
