@@ -70,7 +70,7 @@ const RadioFilter = () => {
       } filters__dropdown`}
     >
       <div className={styles.dropdown__container} onClick={showDropdownList}>
-        <p className={styles.dropdown__title}>
+        <p className={`${styles.dropdown__title} titleM`}>
           {baseIngredient ? baseIngredient : "Choose base ingredient"}
         </p>
         <div className={styles.dropdownBtn}>
@@ -93,7 +93,7 @@ const RadioFilter = () => {
             </span>
           </label>
           <ul
-            className={`${styles.options} list-reset ${styles.dropdown__list}`}
+            className={`list-reset ${styles.options}`}
           >
             {optionsList.map((el) => (
               <li key={el.toLowerCase()} className={styles.options__item}>
