@@ -1,34 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setExcludeIngredients } from "../../../../redux/slices/filterSlice";
 
 import styles from "./CheckboxList.module.scss";
 
-const CheckboxList = ({ title, list, onClickExclude, onClickAdd }) => {
-  const {ingredientsOff} = useSelector((state) => state.filter);
-  const [excludedItems, setExcludedItems] = useState({});
+const CheckboxList = ({ title, list }) => {
+  const dispatch = useDispatch();
+  const {excludeIngredients} = useSelector((state) => state.filter);
 
-  //чтобы сохранялось зачеркивание, если есть исключенные ингредиенты в ЛС
-  useEffect(() => {
-    const excludedItemsFromLS = ingredientsOff || [];
-    const excludedItemsState = excludedItemsFromLS.reduce((acc, cur) => {
-      acc[cur] = true;
-      return acc;
-    }, {});
-    setExcludedItems(excludedItemsState);
-  }, [ingredientsOff]);
-
-  const handleExcludeClick = (item) => {
-    onClickExclude(item);
-    setExcludedItems(prev => {
-      return { ...prev, [item]: true }
-    });
-  };
-
-  const handleAddClick = (item) => {
-    onClickAdd(item);
-    setExcludedItems(prev => {
-      return { ...prev, [item]: false }
-    });
+  const handleChange = (item) => {
+    if (excludeIngredients.includes(item)) {
+      dispatch(setExcludeIngredients(excludeIngredients.filter((el) => el !== item)));
+    } else {
+      dispatch(setExcludeIngredients([...excludeIngredients, item]));
+    }
   };
 
   return (
@@ -36,28 +21,20 @@ const CheckboxList = ({ title, list, onClickExclude, onClickAdd }) => {
       <h4 className={styles.title}>{title}</h4>
       <ul className={`${styles.list} ${styles.list__alcohol} list-reset`}>
         {list.map((item, i) => (
-          <li 
-          className={`${styles.listItem} ${excludedItems[item] ? styles.listItem__exclude : ''}`} 
-          key={item}>
-            <button
-              className={`${styles.button} ${styles.button__minus}`}
-              type="button"
-              aria-label={`Exclude ${item}`}
-              onClick={() => { 
-                handleExcludeClick(item)
-              }}
-            >
-              -
-            </button>
-            {item}
-            <button
-              className={`${styles.button} ${styles.button__plus}`}
-              type="button"
-              aria-label={`Add ${item}`}
-              onClick={() => handleAddClick(item)}
-            >
-              +
-            </button>
+          <li className={styles.listItem} key={item}>
+            <label className={styles.label}>
+              <input
+                value={item}
+                type="checkbox"
+                name={item}
+                onChange={() =>  handleChange(item)}
+                checked={excludeIngredients.includes(item) ? false : true}
+              />
+              <div className={`${styles.checkbox} ${styles.hide}`}>
+                <span className="material-icons">done</span>
+              </div>
+              {item}
+            </label>
           </li>
         ))}
       </ul>

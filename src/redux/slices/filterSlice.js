@@ -4,8 +4,7 @@ const initialState = {
   currentCategory: JSON.parse(localStorage.getItem("currentCategory")) || "All",
   currentSubCategory: JSON.parse(localStorage.getItem("currentSubCategory")),
   baseIngredient: JSON.parse(localStorage.getItem("baseIngredient")) || "",
-  ingredientsOff: JSON.parse(localStorage.getItem("ingredientsOff")) || [],
-  ingredientsOn: JSON.parse(localStorage.getItem("ingredientsOn")) || [],
+  excludeIngredients: JSON.parse(localStorage.getItem("excludeIngredients")) || [],
 };
 
 export const filterSlice = createSlice({
@@ -18,24 +17,12 @@ export const filterSlice = createSlice({
     setCurrentSubCategory: (state, action) => {
       state.currentSubCategory = action.payload;
     },
+    
     setBaseIngredient: (state, action) => {
       state.baseIngredient = action.payload;
     },
-    setIngredientsOff: (state, action) => {
-      state.ingredientsOff = Array.isArray(action.payload)
-        ? []
-        : [...state.ingredientsOff, action.payload];
-      state.ingredientsOn = state.ingredientsOn.filter(
-        (el) => el !== action.payload
-      );
-    },
-    setIngredientsOn: (state, action) => {
-      state.ingredientsOn = Array.isArray(action.payload)
-        ? []
-        : [...state.ingredientsOn, action.payload];
-      state.ingredientsOff = state.ingredientsOff.filter(
-        (el) => el !== action.payload
-      );
+    setExcludeIngredients: (state, action) => {
+      state.excludeIngredients = action.payload
     },
   },
 });
@@ -44,7 +31,6 @@ export const {
   setCurrentCategory,
   setCurrentSubCategory,
   setBaseIngredient,
-  setIngredientsOff,
-  setIngredientsOn,
+  setExcludeIngredients
 } = filterSlice.actions;
 export default filterSlice.reducer;

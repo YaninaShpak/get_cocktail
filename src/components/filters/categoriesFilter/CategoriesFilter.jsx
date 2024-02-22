@@ -5,8 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   setCurrentCategory,
   setCurrentSubCategory,
-  setBaseIngredient,
-  setIngredientsOn,
+  setBaseIngredient
 } from "../../../redux/slices/filterSlice";
 import { setSorting } from "../../../redux/slices/sortingSlice";
 import { setCurrentPage } from "../../../redux/slices/paginationSlice";
@@ -28,7 +27,6 @@ const CategoriesFilter = memo(() => {
         dispatch(setCurrentSubCategory(null));
       }
       dispatch(setBaseIngredient(""));
-      dispatch(setIngredientsOn([]));
       dispatch(setCurrentPage(1));
     },
     [dispatch]

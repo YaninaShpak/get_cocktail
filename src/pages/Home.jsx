@@ -18,11 +18,10 @@ import PaginationComponent from "../components/pagination/PaginationComponent";
 import {
   filterCategory,
   filterBaseIngredient,
-  filterIncludeIngredients,
-  filterExcludeIngredients,
   search,
   filterSubCategory,
   filterTotalStrength,
+  filterExcludeIngredients
 } from "../utils/filters";
 
 const Home = () => {
@@ -33,8 +32,7 @@ const Home = () => {
     currentCategory,
     currentSubCategory,
     baseIngredient,
-    ingredientsOff,
-    ingredientsOn,
+    excludeIngredients
   } = useSelector((state) => state.filter);
   const { sorting } = useSelector((state) => state.sort);
   const { searchValue } = useSelector((state) => state.search);
@@ -50,8 +48,7 @@ const Home = () => {
       JSON.stringify(currentSubCategory)
     );
     localStorage.setItem("baseIngredient", JSON.stringify(baseIngredient));
-    localStorage.setItem("ingredientsOff", JSON.stringify(ingredientsOff));
-    localStorage.setItem("ingredientsOn", JSON.stringify(ingredientsOn));
+    localStorage.setItem("excludeIngredients", JSON.stringify(excludeIngredients));
     localStorage.setItem("currentPage", JSON.stringify(currentPage));
     localStorage.setItem("sorting", JSON.stringify(sorting));
   }
@@ -66,10 +63,9 @@ const Home = () => {
         )
         .then(({ data }) => filterCategory(currentCategory, "All", data))
         .then((data) => filterBaseIngredient(baseIngredient, data))
-        .then((data) => filterIncludeIngredients(ingredientsOn, data))
-        .then((data) => filterExcludeIngredients(ingredientsOff, data))
         .then((data) => search(searchValue, data))
         .then((data) => filterSubCategory(currentSubCategory, data))
+        .then((data) => filterExcludeIngredients(excludeIngredients, data))
         .then((data) =>
           filterTotalStrength(currentCategory, valueMin, valueMax, data)
         );
@@ -95,8 +91,7 @@ const Home = () => {
     valueMin,
     valueMax,
     currentSubCategory,
-    ingredientsOff,
-    ingredientsOn,
+    excludeIngredients
   ]);
 
   const skeletons = Array.from({ length: 3 }, (_, index) => (

@@ -1,11 +1,6 @@
-import React, { useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
-
-import {
-  setIngredientsOff,
-  setIngredientsOn,
-} from "../../../redux/slices/filterSlice";
-import { setCurrentPage } from "../../../redux/slices/paginationSlice";
+import React from "react";
+import { useSelector, useDispatch} from "react-redux";
+import { setExcludeIngredients } from "../../../redux/slices/filterSlice";
 
 import CheckboxList from "./CheckboxList/CheckboxList";
 
@@ -15,35 +10,32 @@ import { ingredients } from "../../../data/ingredients";
 
 const CheckboxFilter = () => {
   const dispatch = useDispatch();
-  const { currentCategory } = useSelector((state) => state.filter);
+  const { currentCategory, excludeIngredients } = useSelector((state) => state.filter);
 
-  const excludeIngredients = useCallback((item) => {
-    dispatch(setIngredientsOff(item));
-    dispatch(setCurrentPage(1));
-  }, [dispatch]);
-
-  const addIngredients = useCallback((item) => {
-    dispatch(setIngredientsOn(item));
-    dispatch(setCurrentPage(1));
-  }, [dispatch]);
+  const handleExcludeAllClick = () => {
+    if (excludeIngredients.length === 0) {
+      dispatch(setExcludeIngredients(ingredients.alcohol.concat(ingredients.nonAlcohol)));
+    } else {
+      dispatch(setExcludeIngredients([]));
+    }
+  };
 
   return (
     <div className={styles.checkboxFilter}>
       <h3 className={styles.title}>Add/Exclude ingredients</h3>
+      <div className={styles.buttonWrapper} onClick={handleExcludeAllClick}>
+        <div className={`${styles.checkbox} ${excludeIngredients.length !== 0 ? styles.hide : ''}`}>
+          <span className="material-icons">done</span>
+        </div>
+        <button className={styles.button} type="button">
+          Add/Exclude All
+        </button>
+      </div>
+
       {currentCategory !== "Non alcoholic" && (
-        <CheckboxList
-          title="Alcohol"
-          list={ingredients.alcohol}
-          onClickExclude={excludeIngredients}
-          onClickAdd={addIngredients}
-        />
+        <CheckboxList title="Alcohol" list={ingredients.alcohol} />
       )}
-      <CheckboxList
-        title="Non Alcohol"
-        list={ingredients.nonAlcohol}
-        onClickExclude={excludeIngredients}
-        onClickAdd={addIngredients}
-      />
+      <CheckboxList title="Non Alcohol" list={ingredients.nonAlcohol} />
     </div>
   );
 };

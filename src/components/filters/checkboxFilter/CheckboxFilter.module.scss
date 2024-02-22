@@ -1,3 +1,5 @@
+@import '../../../scss/variables.scss';
+
 .checkboxFilter {
   display: flex;
   flex-direction: column;
@@ -6,4 +8,45 @@
 
 .title {
   font-size: 18px;
+}
+
+.buttonWrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+
+  cursor: pointer;
+}
+
+.button {
+  padding: 10px 15px;
+
+  font-size: 16px;
+  color: #fff;
+
+  background: transparent;
+
+  border: none;
+  border-bottom: 1px solid #fff;
+
+  cursor: pointer;
+}
+
+.checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 5px 5px;
+  width: 40px;
+  height: 40px;
+
+  background: transparent;
+  border: 1px solid #000;
+  border-top: 1px solid $color_light;
+  border-left: 1px solid $color_light;
+}
+
+.checkbox.hide span {
+  display: none;
 }

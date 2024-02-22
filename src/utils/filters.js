@@ -16,18 +16,23 @@ export const filterBaseIngredient = (baseIngredient, data) => {
   );
 };
 
-export const filterIncludeIngredients = (ingredientsOn, data) => {
-  return ingredientsOn.length > 0
-    ? data.filter((el) =>
-        ingredientsOn.some((item) => el.Ingredients.includes(item))
-      )
-    : data;
-};
+// export const filterIncludeIngredients = (ingredientsOn, data) => {
+//   return ingredientsOn.length > 0
+//     ? data.filter((el) =>
+//         ingredientsOn.some((item) => el.Ingredients.includes(item))
+//       )
+//     : data;
+// };
 
-export const filterExcludeIngredients = (ingredientsOff, data) => {
-  return ingredientsOff.length > 0
+export const filterExcludeIngredients = (excludeIngredients, data) => {
+  return excludeIngredients.length > 0
     ? data.filter(
-        (el) => !ingredientsOff.some((item) => el.Ingredients.includes(item))
+        (el) =>
+          !el.Ingredients.some((item) =>
+            excludeIngredients.some((i) =>
+              item.toLowerCase().includes(i.toLowerCase())
+            )
+          )
       )
     : data;
 };

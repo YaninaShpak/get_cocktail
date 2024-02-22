@@ -4,8 +4,7 @@ import {
   setCurrentCategory,
   setCurrentSubCategory,
   setBaseIngredient,
-  setIngredientsOff,
-  setIngredientsOn,
+  setExcludeIngredients
 } from "../slices/filterSlice";
 import { setValueMin, setValueMax } from "../slices/rangeSliderSlice";
 
@@ -14,8 +13,7 @@ export const clearFiltersAndRange = () => (dispatch) => {
     dispatch(setCurrentCategory("All"));
     dispatch(setCurrentSubCategory(null));
     dispatch(setBaseIngredient(""));
-    dispatch(setIngredientsOff([]));
-    dispatch(setIngredientsOn([]));
+    dispatch(setExcludeIngredients([]));
     dispatch(setValueMin(3));
     dispatch(setValueMax(100));
   });
