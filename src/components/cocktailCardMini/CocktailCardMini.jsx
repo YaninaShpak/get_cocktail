@@ -34,7 +34,7 @@ const CocktailCardMini = memo((props) => {
         <div className={style.cardMini__img}>
           <img src={imgUrl} alt={title}/>
         </div>
-        <div className="card__info">
+        <div className={style.cardMini__info}>
           {strength && <p>Strength: <span>{strength} %</span></p>}
         </div>
         
