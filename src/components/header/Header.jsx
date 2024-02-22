@@ -6,11 +6,13 @@ import style from "./Header.module.scss";
 const Header = () => {
   return (
     <header className={style.mainHeader}>
-      <p className={style.mainHeader__title}>
-        <Link className="link" to="/">
-          Let's get cocktail!
-        </Link>
-      </p>
+      <div className="container">
+        <p className={style.mainHeader__title}>
+          <Link className="link" to="/">
+            Let's get cocktail!
+          </Link>
+        </p>
+      </div>
     </header>
   );
 };
