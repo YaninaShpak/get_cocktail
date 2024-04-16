@@ -5,8 +5,10 @@ import { setBaseIngredient } from "../../../redux/slices/filterSlice";
 import { setCurrentPage } from "../../../redux/slices/paginationSlice";
 
 import CancelButton from "../../buttons/cancelButton/CancelButton";
+import ClearIcon from "../../icons/clearIcon/ClearIcon";
 
 import styles from "./RadioFilter.module.scss";
+import stylesIcon from "../../icons/clearIcon/ClearIcon.module.scss";
 
 import { alcoOptions, nonAlcoOptions } from "../../../data/options";
 
@@ -63,6 +65,10 @@ const RadioFilter = () => {
     setIsChecked({});
   };
 
+  const clearSearch = () => {
+    setSearchOption("");
+  };
+
   return (
     <div
       className={`${styles.dropdown} ${
@@ -88,13 +94,18 @@ const RadioFilter = () => {
               value={searchOption}
               onChange={onChangeBaseIngredient}
             />
-            <span className={`${styles.dropdown__searchIcon} material-icons`}>
-              search
-            </span>
+            {searchOption ? (
+              <ClearIcon
+                className={stylesIcon.radioFilter}
+                onClick={clearSearch}
+              />
+            ) : (
+              <span className={`${styles.dropdown__searchIcon} material-icons`}>
+                search
+              </span>
+            )}
           </label>
-          <ul
-            className={`list-reset ${styles.options}`}
-          >
+          <ul className={`list-reset ${styles.options}`}>
             {optionsList.map((el) => (
               <li key={el.toLowerCase()} className={styles.options__item}>
                 <label className={styles.options__label}>
