@@ -9,17 +9,21 @@ import CheckboxFilter from "./checkboxFilter/CheckboxFilter";
 import ClearButton from "../buttons/clearButton/ClearButton";
 
 import styles from "./Filters.module.scss";
+import { useState } from "react";
 
 const Filters = () => {
   const { currentCategory } = useSelector((state) => state.filter);
   const isAlcoholic = currentCategory === "Alcoholic";
-
+  const [showFilters, setshowFilters] = useState(false);
+  
   return (
-    <section className={`${styles.filters} content-container__filters`}>
+    <section className={`${styles.filters} contentContainer__filters`}>
       <div className={styles.filters__titleWrapper}>
-        <h2 className={`title ${styles.filters__title}`}>Filters</h2>
+        <h2 onClick={() => {
+          setshowFilters(!showFilters)
+        }} className={`title ${styles.filters__title}`}>Filters</h2>
       </div>
-      <div className={styles.filters__wrapper}>
+      <div className={`${styles.filters__wrapper} ${showFilters ? styles.show : ''}`}>
         <CategoriesFilter />
         <RadioFilter />
         {isAlcoholic && (
