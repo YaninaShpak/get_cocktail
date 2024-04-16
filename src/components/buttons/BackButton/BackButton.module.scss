@@ -2,7 +2,7 @@
 
 .BackButton {
   position: absolute;
-  bottom: 0;
+  bottom: 20px;
   left: 40px;
 
   display: flex;
@@ -19,8 +19,14 @@
 
   cursor: pointer;
 
-  &:hover {
-    box-shadow: 0 0 20px 0 $color_accent;
+  @media (max-width: #{$middleWidth + px}) {
+    left: 0;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      box-shadow: 0 0 20px 0 $color_accent;
+    }
   }
 }
 

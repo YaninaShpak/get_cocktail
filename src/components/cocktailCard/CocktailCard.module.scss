@@ -1,16 +1,34 @@
+@import '../../scss/variables';
+
 .root {
   position: relative;
-  
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   
   column-gap: 50px;
+
+  @media (max-width: #{$middleWidth + px}) {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+
+    width: 80%;
+
+    padding-bottom: 100px;
+  }
 }
 
 .root__info {
   display: flex;
   flex-direction: column;
   row-gap: 20px;
+}
+
+.root__subTitle {
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+
+  border-bottom: 1px solid #ffffff;
 }
 
 .ingredientsList__item {
@@ -20,8 +38,16 @@
 }
 
 .root__img {
+  max-height: 80vh;
+
   img {
+    object-fit: contain;
     height: 100%;
     width: auto;
+
+    @media (max-width: #{$middleWidth + px}) {
+      height: auto;
+      width: 100%;
+    }
   }
 }

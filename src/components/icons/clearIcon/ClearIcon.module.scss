@@ -8,7 +8,18 @@
   opacity: 0.3;
   cursor: pointer;
 
-  &:hover {
-    opacity: 0.8;
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.8;
+    }
   }
+}
+
+.radioFilter {
+  right: 24px;
+
+  path {
+    fill: #fff;
+  }
+
 }

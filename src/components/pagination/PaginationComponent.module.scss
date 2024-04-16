@@ -22,7 +22,9 @@
   background-color: $color_accent;
 }
 
-.root:not(.current, :disabled):hover {
-  box-shadow: 0 0 10px 0 $color_accent;
-  cursor: pointer;
+@media (hover: hover) {
+  .root:not(.current, :disabled):hover {
+    box-shadow: 0 0 10px 0 $color_accent;
+    cursor: pointer;
+  }
 }

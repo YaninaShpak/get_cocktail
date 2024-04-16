@@ -3,7 +3,10 @@
 .filters {
   display: flex;
   flex-direction: column;
-  height: 100%;
+
+  @media (max-width: #{$minWidth + px}) {
+    align-items: center;
+  }
 }
 
 .filters__titleWrapper {
@@ -14,14 +17,30 @@
 
 .filters__title {
   margin-bottom: 10px;
+
+  @media (max-width: #{$minWidth + px}) {
+    cursor: pointer;
+  }
 }
 
 .filters__wrapper {
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: 42px;
 
   @media (max-width: #{$minWidth + px}) {
     display: none;
+
+    &.show {
+      display: flex;
+      width: 80%;
+    }
+  }
+
+  @media (max-width: 385px) {
+    &.show {
+      width: 100%;
+    }
+    
   }
 }

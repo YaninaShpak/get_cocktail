@@ -2,8 +2,14 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(287px, 1fr));
   align-items: stretch;
-  @include adaptiv-value(column-gap, 40, 10, 1);
-  row-gap: 24px;
+  justify-content: center;
+  @include adaptiv-value(column-gap, 56, 10, 1);
+  row-gap: 32px;
 
   margin-bottom: 40px;
+
+  @media (max-width: #{$middleWidth + px}) {
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    @include adaptiv-value(column-gap, 40, 10, 1);
+  }
 }

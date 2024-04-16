@@ -1,9 +1,18 @@
+@use "sass:math"; 
 @import '../../scss/variables.scss';
+@import '../../scss/mixins';
+
 
 .root {
   position: relative;
 
-  width: 315px;
+  min-width: 200px;
+  // width: 474px;
+  @include adaptiv-value(width, 474, 50, 1);
+
+  @media (max-width: 1040px) {
+    width: 100%;
+  }
 }
 
 .input {

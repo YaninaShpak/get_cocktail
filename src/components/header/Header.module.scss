@@ -1,21 +1,32 @@
 @import '../../scss/variables.scss';
+@import '../../scss/_mixins';
 
 .mainHeader {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 20px;
-
   padding: 24px 0;
   margin-bottom: 24px;
 
-  text-align: center;
+  width: 100%;
   
   background: #1b1919;
+}
+
+.mainHeader__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  column-gap: 16px;
+  row-gap: 20px;
+
+  width: 100%;
 }
 
 .mainHeader__title {
   color: $color_accent;
   font-family: 'Signika Negative', sans-serif;
   font-size: 40px;
+
+  @media (max-width: #{$minWidth + px}) {
+    @include adaptiv-value(font-size, 40, 20, 1);
+  }
 }

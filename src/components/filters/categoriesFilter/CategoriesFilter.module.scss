@@ -20,8 +20,10 @@
 
   cursor: pointer;
 
-  &:hover {
-    background-color: lighten($color_basic, 10%);
+  @media (hover: hover) {
+    &:hover {
+      background-color: lighten($color_basic, 10%);
+    }
   }
 
   &.current {

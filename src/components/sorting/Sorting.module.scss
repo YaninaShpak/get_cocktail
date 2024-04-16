@@ -5,9 +5,6 @@
 
   display: flex;
   align-items: center;
-
-  min-width: 235px;
-  min-height: 55px;
 }
 
 .sorting__title {
@@ -36,12 +33,13 @@
 
   cursor: default;
 
-  &:hover {
-    background-color: $color_light;
+  @media (hover: hover) {
+    &:hover {
+      background-color: $color_light;
+    }
   }
 
   &.current {
     color: $color_accent;
-    // background-color: $color_light;
   }
 }
