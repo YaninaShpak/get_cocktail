@@ -5,10 +5,11 @@ import { useDispatch } from "react-redux";
 
 import axios from "axios";
 
+import getRandomIntInclusive from "../utils/getRandomNum";
+
 //components
 import CocktailCard from "../components/cocktailCard/CocktailCard";
 import SkeletonCocktailCard from "../components/cocktailCard/SkeletonCocktailCard";
-import BackButton from "../components/buttons/backButton/BackButton";
 
 import { setCocktailID } from "../redux/slices/cocktailListSlice";
 
@@ -16,12 +17,6 @@ const RandomCocktailPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [randomCocktail, setRandomCocktail] = useState(null);
-
-  function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
 
   useEffect(() => {
     axios
@@ -34,6 +29,8 @@ const RandomCocktailPage = () => {
       });
   }, []);
 
+  
+
   return (
     <div className="container cocktailPage">
       {randomCocktail ? (
@@ -41,7 +38,7 @@ const RandomCocktailPage = () => {
       ) : (
         <SkeletonCocktailCard />
       )}
-      <BackButton to="/" />
+      
     </div>
   );
 };
