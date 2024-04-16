@@ -24,6 +24,8 @@ import {
   filterExcludeIngredients
 } from "../utils/filters";
 
+import saveToLocalStorage from "../utils/saveToLocalStorage";
+
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -41,16 +43,13 @@ const Home = () => {
 
   const dispatch = useDispatch();
 
-  function saveFiltersToLocalStorage() {
-    localStorage.setItem("currentCategory", JSON.stringify(currentCategory));
-    localStorage.setItem(
-      "currentSubCategory",
-      JSON.stringify(currentSubCategory)
-    );
-    localStorage.setItem("baseIngredient", JSON.stringify(baseIngredient));
-    localStorage.setItem("excludeIngredients", JSON.stringify(excludeIngredients));
-    localStorage.setItem("currentPage", JSON.stringify(currentPage));
-    localStorage.setItem("sorting", JSON.stringify(sorting));
+  const saveFiltersToLocalStorage = () => {
+    saveToLocalStorage("currentCategory", currentCategory);
+    saveToLocalStorage("currentSubCategory", currentSubCategory);
+    saveToLocalStorage("baseIngredient", baseIngredient);
+    saveToLocalStorage("excludeIngredients", excludeIngredients);
+    saveToLocalStorage("currentPage", currentPage);
+    saveToLocalStorage("sorting", sorting);
   }
 
   const getCocktails = async () => {
@@ -122,11 +121,10 @@ const Home = () => {
     <div className="container contentContainer">
       <h1 className="visually-hidden">Cocktail choice</h1>
       <Filters />
-      <div className="actionsWrapper contentContainer__actions">
-        <Search />
+      <section className="actionsWrapper contentContainer__actions">
         <Sorting />
-        <RandomCocktailButton onClick={saveFiltersToLocalStorage} />
-      </div>
+        <Search />
+      </section>
       <section className="cocktails contentContainer__cocktails">
         <h2 className="visually-hidden">Cocktails list</h2>
         <ul className="cocktailsList list-reset cocktails__list">
