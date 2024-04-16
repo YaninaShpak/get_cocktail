@@ -1,4 +1,7 @@
+@use "sass:math";
+
 @import 'variables.scss';
+@import 'mixins.scss';
 @import 'global.scss';
 
 @import 'blocks/titles/title';
@@ -6,5 +9,6 @@
 @import 'blocks/content-container';
 @import 'blocks/actions-wrapper';
 @import 'blocks/cocktails-list';
+@import 'blocks/cocktails';
 
 @import 'blocks/cocktail-page';
