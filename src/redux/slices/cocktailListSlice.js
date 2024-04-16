@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   items: [],
   cocktailID: "",
+  cocktailItem: "",
+  randomNum: 0
 };
 
 export const cocktailListSlice = createSlice({
@@ -13,10 +15,16 @@ export const cocktailListSlice = createSlice({
       state.items = action.payload;
     },
     setCocktailID: (state, action) => {
-      state.cocktailID = action.payload;
+      state.cocktailID= action.payload;
+    },
+    setCocktailItem: (state, action) => {
+      state.cocktailItem= action.payload;
+    },
+    setRandomNum: (state, action) => {
+      state.randomNum= action.payload;
     },
   },
 });
 
-export const { setItems, setCocktailID } = cocktailListSlice.actions;
+export const { setItems, setCocktailID, setCocktailItem, setRandomNum } = cocktailListSlice.actions;
 export default cocktailListSlice.reducer;
