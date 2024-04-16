@@ -9,7 +9,7 @@ const RandomCocktailButton = ({onClick}) => {
   return (
     <Link
       to="random-cocktail/random/:title"
-      className={styles.button}
+      className={`${styles.button} actionsWrapper__button`}
       onClick={onClick}
     >
       Random cocktail
