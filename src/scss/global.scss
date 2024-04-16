@@ -16,6 +16,14 @@ body {
   height: 100%;
 }
 
+#root {
+  height: 100%;
+}
+
+.App {
+  height: 100%;
+}
+
 body {
   font-family: "Nunito", Helvetica, sans-serif;
   font-weight: 400;
@@ -43,10 +51,6 @@ main {
   margin: 0 auto;
   padding: 0 40px;
   max-width: #{$maxWidth + px};
-
-  @media (max-width: #{$middleWidth + px}) {
-    padding: 0 30px;
-  }
 
   @media (max-width: #{$minWidth + px}) {
     padding: 0 10px;

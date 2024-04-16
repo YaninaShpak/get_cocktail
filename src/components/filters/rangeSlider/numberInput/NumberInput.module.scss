@@ -1,7 +1,13 @@
 .field {
   display: flex;
+  align-items: center;
+  column-gap: 8px;
 
   input {
+    padding: 3px;
+
+    border-radius: 3px;
+    
     -moz-appearance: textfield;
 
     &::-webkit-outer-spin-button,
