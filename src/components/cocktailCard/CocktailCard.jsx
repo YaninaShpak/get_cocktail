@@ -1,6 +1,7 @@
 import React from "react";
 
 import CocktailProperty from "../cocktailProperty/CocktailProperty";
+import BackButton from "../buttons/backButton/BackButton";
 
 import styles from "./CocktailCard.module.scss";
 
@@ -22,7 +23,7 @@ const CocktailCard = ({ item }) => {
       <div className={styles.root__info}>
         <h2>{Title}</h2>
         <div className={styles.root__ingredients}>
-          <h3>Ingredients</h3>
+          <h3 className={styles.root__subTitle}>Ingredients</h3>
           <ul className={`${styles.ingredientsList} list-reset`}>
             {Ingredients?.map((el, i) => (
               <li className={styles.ingredientsList__item} key={`${id}-${i}`}>
@@ -33,19 +34,20 @@ const CocktailCard = ({ item }) => {
           </ul>
         </div>
         <div className={styles.root__instruction}>
-          <h3>Instructions</h3>
+          <h3 className={styles.root__subTitle}>Instructions</h3>
           <p>{Instructions}</p>
         </div>
         <CocktailProperty title="Alcoholic" desc={Alcoholic} />
         <CocktailProperty title="Category" desc={Category} />
         <CocktailProperty title="Glass" desc={Glass} />
         {totalStrength && (
-          <CocktailProperty title="TotalStrength" desc={totalStrength} />
+          <CocktailProperty title="Total Strength" desc={totalStrength} />
         )}
       </div>
       <div className={styles.root__img}>
         <img src={Img} alt={Title} />
       </div>
+      <BackButton to="/" />
     </div>
   );
 };
