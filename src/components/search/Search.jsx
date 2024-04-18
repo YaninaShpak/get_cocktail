@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { setSearchValue } from "../../redux/slices/searchSlice";
 import { setCurrentPage } from "../../redux/slices/paginationSlice";
@@ -12,6 +12,7 @@ import styles from "./Search.module.scss";
 
 const Search = () => {
   const dispatch = useDispatch();
+  const {searchValue} = useSelector((state) => state.search);
   const [value, setValue] = useState("");
 
   const inputRef = useRef();
@@ -40,13 +41,13 @@ const Search = () => {
       <input
         ref={inputRef}
         onChange={onChangeSearch}
-        value={value}
+        value={value ? value : searchValue}
         className={styles.input}
         id="search"
         type="text"
         placeholder="Search"
       />
-      {value && <ClearIcon onClick={clearSearch} />}
+      {(value || searchValue) && <ClearIcon onClick={clearSearch} />}
     </div>
   );
 };
