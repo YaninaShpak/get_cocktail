@@ -38,8 +38,15 @@ export const filterExcludeIngredients = (excludeIngredients, data) => {
 };
 
 export const search = (searchValue, data) => {
-  return data.filter((el) =>
-    el.Title.toLowerCase().includes(searchValue.toLowerCase())
+  const findSome = (array) => {
+    return array.some((item) =>
+      item.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  };
+  return data.filter(
+    (el) =>
+      el.Title.toLowerCase().includes(searchValue.toLowerCase()) ||
+      findSome(el.Ingredients)
   );
 };
 
