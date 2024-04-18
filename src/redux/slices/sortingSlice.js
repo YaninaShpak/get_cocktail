@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   sorting: JSON.parse(localStorage.getItem("sorting")) || {
     nameItem: "popularity",
-    nameSort: "",
+    nameSort: "id",
   },
 };
 
