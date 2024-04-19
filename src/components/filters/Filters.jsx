@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { useSelector } from "react-redux";
 
 //components
@@ -9,7 +11,6 @@ import CheckboxFilter from "./checkboxFilter/CheckboxFilter";
 import ClearButton from "../buttons/clearButton/ClearButton";
 
 import styles from "./Filters.module.scss";
-import { useState } from "react";
 
 const Filters = () => {
   const { currentCategory } = useSelector((state) => state.filter);
