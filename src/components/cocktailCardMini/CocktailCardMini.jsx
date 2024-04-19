@@ -7,7 +7,7 @@ import { setCocktailID } from '../../redux/slices/cocktailListSlice';
 import style from './CocktailCardMini.module.scss';
 
 const CocktailCardMini = memo((props) => {
-  const {link, title, imgUrl, strength, onClick} = props;
+  const {id, title, imgUrl, strength, onClick} = props;
   
   const dispatch = useDispatch();
 
@@ -19,7 +19,7 @@ const CocktailCardMini = memo((props) => {
   }, [imgUrl]);
   
   const handleClick = () => {
-    dispatch(setCocktailID(link));
+    dispatch(setCocktailID(id));
     if (onClick) onClick();
   }
 
@@ -27,7 +27,7 @@ const CocktailCardMini = memo((props) => {
     <li className={style.root}>
       <Link 
         className={`${style.cardMini} link`} 
-        to={`cocktail/${link}`} 
+        to={`cocktail/${title}`} 
         onClick={handleClick}
       >
         <h3 className={style.cardMini__title}>{title}</h3>
@@ -37,7 +37,6 @@ const CocktailCardMini = memo((props) => {
         <div className={style.cardMini__info}>
           {strength && <p>Strength: <span>{strength} %</span></p>}
         </div>
-        
       </Link>
       <div className={style.background} ref={background}></div>
     </li>
