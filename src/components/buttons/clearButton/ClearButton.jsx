@@ -1,8 +1,7 @@
 import React from "react";
+
 import { useDispatch } from "react-redux";
 import { setCurrentPage } from "../../../redux/slices/paginationSlice";
-
-//states
 import { clearFiltersAndRange } from "../../../redux/actions/clearActions";
 
 import styles from "./ClearButton.module.scss";
