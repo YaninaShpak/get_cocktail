@@ -1,8 +1,9 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setBaseIngredient } from "../../../redux/slices/filterSlice";
 import { setCurrentPage } from "../../../redux/slices/paginationSlice";
+import { setIngredientsList } from "../../../redux/slices/ingredientsSlice";
 
 import CancelButton from "../../buttons/cancelButton/CancelButton";
 import ClearIcon from "../../icons/clearIcon/ClearIcon";
@@ -20,6 +21,12 @@ const RadioFilter = () => {
   const dispatch = useDispatch();
   const { baseIngredient } = useSelector((state) => state.filter);
   const { currentCategory } = useSelector((state) => state.filter);
+
+  useEffect(() => {
+    if (!baseIngredient) {
+      setIsChecked({})
+    }
+  }, [baseIngredient]);
 
   //открыть выпадающий список
   const showDropdownList = () => {
@@ -63,6 +70,7 @@ const RadioFilter = () => {
   const cancel = () => {
     dispatch(setBaseIngredient(""));
     setIsChecked({});
+    dispatch(setIngredientsList(null))
   };
 
   const clearSearch = () => {
