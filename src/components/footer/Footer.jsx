@@ -8,7 +8,6 @@ const Footer = () => {
       <div className="container">
         <p className={styles.copyright}>© 2024 · Ianina Shpak</p>
       </div>
-      
     </footer>
   );
 };
