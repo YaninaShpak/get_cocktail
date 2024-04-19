@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 
 import axios from "axios";
 
+import saveToLocalStorage from "../utils/saveToLocalStorage";
+
 //components
 import CocktailCard from "../components/cocktailCard/CocktailCard";
 import SkeletonCocktailCard from "../components/cocktailCard/SkeletonCocktailCard";
@@ -15,14 +17,14 @@ const RandomCocktailPage = () => {
 
   useEffect(() => {
     axios
-    .get(`https://64f762d19d775408495385e6.mockapi.io/cocktails`)
-    .then(({ data }) => {
-      const selectedCocktail = data[randomNum];
-      console.log(selectedCocktail)
-      setRandomCocktail(selectedCocktail);
-      navigate(`/random-cocktail/random/${selectedCocktail?.Title}`);
-    });
-  },[randomNum])
+      .get(`https://64f762d19d775408495385e6.mockapi.io/cocktails`)
+      .then(({ data }) => {
+        const selectedCocktail = data[randomNum];
+        setRandomCocktail(selectedCocktail);
+        navigate(`/random-cocktail/random/${selectedCocktail?.Title}`);
+      });
+    saveToLocalStorage("randomNum", randomNum);
+  }, [randomNum]);
 
   return (
     <div className="container cocktailPage">
@@ -31,7 +33,6 @@ const RandomCocktailPage = () => {
       ) : (
         <SkeletonCocktailCard />
       )}
-      
     </div>
   );
 };
