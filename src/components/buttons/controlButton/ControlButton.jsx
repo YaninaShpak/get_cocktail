@@ -2,12 +2,12 @@ import React from "react";
 
 import styles from "./ControlButton.module.scss";
 
-const ControlButton = ({ item, handleClick, icon }) => {
+const ControlButton = ({ ariaLabel, item, handleClick, icon, check }) => {
   return (
     <button
-      className={styles.button}
+      className={`${styles.button} ${check ? styles.active : ""}`}
       type="button"
-      aria-label={`Exclude ${item}`}
+      aria-label={`${ariaLabel} ${item}`}
       onClick={() => handleClick(item)}
     >
       <span className={`material-icons ${styles.button__icon}`}>{icon}</span>

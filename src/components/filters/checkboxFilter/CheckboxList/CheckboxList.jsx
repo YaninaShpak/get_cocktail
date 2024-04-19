@@ -1,19 +1,56 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setExcludeIngredients } from "../../../../redux/slices/filterSlice";
+import {
+  setIncludeIngredients,
+  setExcludeIngredients,
+} from "../../../../redux/slices/filterSlice";
+import { setCurrentPage } from "../../../../redux/slices/paginationSlice";
+
+import ControlButton from "../../../buttons/controlButton/ControlButton";
 
 import styles from "./CheckboxList.module.scss";
 
 const CheckboxList = ({ title, list }) => {
   const dispatch = useDispatch();
-  const {excludeIngredients} = useSelector((state) => state.filter);
+  const { includeIngredients, excludeIngredients } = useSelector(
+    (state) => state.filter
+  );
 
-  const handleChange = (item) => {
-    if (excludeIngredients.includes(item)) {
-      dispatch(setExcludeIngredients(excludeIngredients.filter((el) => el !== item)));
+  const createArray = (inArr, exArr, inFunc, exFunc, item) => {
+    const findInItem = inArr.find((el) => el === item);
+    const findExItem = exArr.find((el) => el === item);
+
+    if (findInItem) {
+      dispatch(inFunc(inArr.filter((el) => el !== item)));
     } else {
-      dispatch(setExcludeIngredients([...excludeIngredients, item]));
+      dispatch(inFunc([...inArr, item]));
     }
+
+    if (findExItem) {
+      dispatch(exFunc(exArr.filter((el) => el !== item)));
+    }
+
+    dispatch(setCurrentPage(1));
+  };
+
+  const handleIncludeClick = (item) => {
+    createArray(
+      includeIngredients,
+      excludeIngredients,
+      setIncludeIngredients,
+      setExcludeIngredients,
+      item
+    );
+  };
+
+  const handleExcludeClick = (item) => {
+    createArray(
+      excludeIngredients,
+      includeIngredients,
+      setExcludeIngredients,
+      setIncludeIngredients,
+      item
+    );
   };
 
   return (
@@ -22,19 +59,23 @@ const CheckboxList = ({ title, list }) => {
       <ul className={`${styles.list} ${styles.list__alcohol} list-reset`}>
         {list.map((item, i) => (
           <li className={styles.listItem} key={item}>
-            <label className={styles.label}>
-              <input
-                value={item}
-                type="checkbox"
-                name={item}
-                onChange={() =>  handleChange(item)}
-                checked={excludeIngredients.includes(item) ? false : true}
-              />
-              <div className={`${styles.checkbox} ${styles.hide}`}>
-                <span className="material-icons">done</span>
-              </div>
+            <div className={styles.label}>
               {item}
-            </label>
+              <ControlButton
+                ariaLabel="Include"
+                item={item}
+                handleClick={handleIncludeClick}
+                icon="add"
+                check={includeIngredients.find((el) => el === item)}
+              />
+              <ControlButton
+                ariaLabel="Exclude"
+                item={item}
+                handleClick={handleExcludeClick}
+                icon="remove"
+                check={excludeIngredients.find((el) => el === item)}
+              />
+            </div>
           </li>
         ))}
       </ul>
