@@ -8,11 +8,21 @@
   height: 25px;
 
   background: transparent;
+  border: none;
+  border-radius: 50%;
 
   cursor: pointer;
 }
 
+.button.active {
+  background: #ffffff;
+}
+
 .button .button__icon {
   font-size: 18px;
-  color: #fff;
+  color: #ffffff;
+}
+
+.button.active .button__icon {
+  color: #000000;
 }
