@@ -16,7 +16,6 @@ import { categories } from "../../../data/categories";
 
 const CategoriesFilter = memo(() => {
   const dispatch = useDispatch();
-
   const { currentCategory } = useSelector((state) => state.filter);
 
   const onChangeCategory = useCallback(
