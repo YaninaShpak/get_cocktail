@@ -18,8 +18,10 @@
 
   cursor: pointer;
 
-  &:hover {
-    box-shadow: 0 0 15px 0 $color_accent;
+  @media (hover: hover) {
+    &:hover {
+      box-shadow: 0 0 15px 0 $color_accent;
+    }
   }
 
   &:active {
