@@ -11,20 +11,20 @@ h1 {
   --index: calc(1vw + 1vh);
 }
 
-html,
-body {
-  height: 100%;
+html {
+  min-height: 100%;
 }
 
 #root {
-  height: 100%;
+  min-height: 100%;
 }
 
 .App {
-  height: 100%;
+  min-height: 100%;
 }
 
 body {
+  min-height: 100%;
   font-family: "Nunito", Helvetica, sans-serif;
   font-weight: 400;
   color: white;
@@ -83,7 +83,6 @@ body .material-icons {
 }
 
 .visually-hidden {
-  position: absolute;
   width: 1px;
   height: 1px;
   margin: -1px;
@@ -93,6 +92,7 @@ body .material-icons {
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
+  opacity: 0;
 }
 
 .list-reset {
