@@ -73,8 +73,6 @@
   border-left: 1px solid $color_light;
 
   cursor: pointer;
-
-  
 }
 
 .root .checkbox span {
@@ -84,5 +82,3 @@
 input:checked ~ .checkbox span {
   display: inline-block;
 }
-
-
