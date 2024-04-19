@@ -12,7 +12,6 @@ import Filters from "../components/filters/Filters";
 import SkeletonCocktailCardMini from "../components/cocktailCardMini/SkeletonCocktailCardMini";
 import Sorting from "../components/sorting/Sorting";
 import Search from "../components/search/Search";
-import RandomCocktailButton from "../components/buttons/randomCocktailButton/RandomCocktailButton";
 import PaginationComponent from "../components/pagination/PaginationComponent";
 
 import {
@@ -21,7 +20,8 @@ import {
   search,
   filterSubCategory,
   filterTotalStrength,
-  filterExcludeIngredients
+  filterIncludeIngredients,
+  filterExcludeIngredients,
 } from "../utils/filters";
 
 import saveToLocalStorage from "../utils/saveToLocalStorage";
@@ -34,7 +34,8 @@ const Home = () => {
     currentCategory,
     currentSubCategory,
     baseIngredient,
-    excludeIngredients
+    includeIngredients,
+    excludeIngredients,
   } = useSelector((state) => state.filter);
   const { sorting } = useSelector((state) => state.sort);
   const { searchValue } = useSelector((state) => state.search);
@@ -47,10 +48,11 @@ const Home = () => {
     saveToLocalStorage("currentCategory", currentCategory);
     saveToLocalStorage("currentSubCategory", currentSubCategory);
     saveToLocalStorage("baseIngredient", baseIngredient);
+    saveToLocalStorage("includeIngredients", includeIngredients);
     saveToLocalStorage("excludeIngredients", excludeIngredients);
     saveToLocalStorage("currentPage", currentPage);
     saveToLocalStorage("sorting", sorting);
-  }
+  };
 
   const getCocktails = async () => {
     try {
@@ -64,11 +66,12 @@ const Home = () => {
         .then((data) => filterBaseIngredient(baseIngredient, data))
         .then((data) => search(searchValue, data))
         .then((data) => filterSubCategory(currentSubCategory, data))
+        .then((data) => filterIncludeIngredients(includeIngredients, data))
         .then((data) => filterExcludeIngredients(excludeIngredients, data))
         .then((data) =>
           filterTotalStrength(currentCategory, valueMin, valueMax, data)
         );
-
+      
       dispatch(setCountItems(response.length));
       const page = response.slice(currentPage * 9 - 9, currentPage * 9);
       dispatch(setItems(page));
@@ -90,7 +93,8 @@ const Home = () => {
     valueMin,
     valueMax,
     currentSubCategory,
-    excludeIngredients
+    includeIngredients,
+    excludeIngredients,
   ]);
 
   const skeletons = Array.from({ length: 3 }, (_, index) => (
@@ -102,12 +106,12 @@ const Home = () => {
       return skeletons;
     } else {
       if (items.length === 0) {
-        return "Nothing found";
+        return <h2>Nothing found</h2>;
       } else {
         return items.map((el) => (
           <CocktailCardMini
             key={el.id}
-            link={el.id}
+            id={el.id}
             title={el.Title}
             imgUrl={el.Img}
             strength={el.totalStrength}
