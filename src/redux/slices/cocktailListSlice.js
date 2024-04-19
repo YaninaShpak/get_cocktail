@@ -4,7 +4,7 @@ const initialState = {
   items: [],
   cocktailID: "",
   cocktailItem: "",
-  randomNum: 0
+  randomNum: JSON.parse(localStorage.getItem("randomNum")) || 0
 };
 
 export const cocktailListSlice = createSlice({
