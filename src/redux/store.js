@@ -6,6 +6,7 @@ import searchSlice from "./slices/searchSlice";
 import cocktailListSlice from "./slices/cocktailListSlice";
 import paginationSlice from "./slices/paginationSlice";
 import rangeSliderSlice from "./slices/rangeSliderSlice";
+import ingredientsSlice from "./slices/ingredientsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,5 +16,6 @@ export const store = configureStore({
     cocktailList: cocktailListSlice,
     pagination: paginationSlice,
     rangeSlider: rangeSliderSlice,
+    ingredientsList: ingredientsSlice
   },
 });
