@@ -16,13 +16,19 @@ export const filterBaseIngredient = (baseIngredient, data) => {
   );
 };
 
-// export const filterIncludeIngredients = (ingredientsOn, data) => {
-//   return ingredientsOn.length > 0
-//     ? data.filter((el) =>
-//         ingredientsOn.some((item) => el.Ingredients.includes(item))
-//       )
-//     : data;
-// };
+export const filterIncludeIngredients = (includeIngredients, data) => {
+  if (includeIngredients.length > 0) {
+    return data.filter((obj) =>
+    includeIngredients.every((name) =>
+        obj.Ingredients.some((fullName) =>
+        fullName.toLowerCase().includes(name.toLowerCase())
+        )
+      )
+    );
+  }
+
+  return data;
+};
 
 export const filterExcludeIngredients = (excludeIngredients, data) => {
   return excludeIngredients.length > 0
