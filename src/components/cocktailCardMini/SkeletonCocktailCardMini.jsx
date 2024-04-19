@@ -12,7 +12,7 @@ const SkeletonCocktailCardMini = (props) => {
       foregroundColor="#b0b0b0"
       {...props}
     >
-      <rect x="0" y="0" rx="10" ry="10" width="260" height="335" />
+      <rect x="0" y="0" rx="10" ry="10" width="287" height="380" />
   </ContentLoader>
   );
 };
