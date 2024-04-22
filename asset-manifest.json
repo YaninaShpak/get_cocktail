@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/get_cocktail/static/css/main.043835bf.css",
+    "main.js": "/get_cocktail/static/js/main.a4be87a9.js",
+    "index.html": "/get_cocktail/index.html",
+    "main.043835bf.css.map": "/get_cocktail/static/css/main.043835bf.css.map",
+    "main.a4be87a9.js.map": "/get_cocktail/static/js/main.a4be87a9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.043835bf.css",
+    "static/js/main.a4be87a9.js"
+  ]
+}
