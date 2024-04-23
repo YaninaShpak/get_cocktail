@@ -17,12 +17,12 @@ function App() {
         <Header />
         <main className="main-content">
           <Routes>
-            <Route path="/get_cocktail/" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route
               path="random-cocktail/random/:title"
               element={<RandomCocktailPage />}
             />
-            <Route path="cocktail/:id" element={<CocktailPage />} />
+            <Route path="cocktail/:title" element={<CocktailPage />} />
           </Routes>
         </main>
         <Footer/>

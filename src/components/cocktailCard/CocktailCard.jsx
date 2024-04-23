@@ -47,7 +47,7 @@ const CocktailCard = ({ item }) => {
       <div className={styles.root__img}>
         <img src={Img} alt={Title} />
       </div>
-      <BackButton to="/get_cocktail/" />
+      <BackButton to="/" />
     </div>
   );
 };

@@ -10,7 +10,7 @@ import styles from "./RandomCocktailButton.module.scss";
 
 const RandomCocktailButton = () => {
   const dispatch = useDispatch();
-  
+   
   return (
     <Link
       to="random-cocktail/random/:title"

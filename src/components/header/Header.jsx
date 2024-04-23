@@ -12,7 +12,7 @@ const Header = () => {
       <div className="container">
         <div className={style.mainHeader__wrapper}>
           <p className={style.mainHeader__title}>
-            <Link className="link" to="/get_cocktail/">
+            <Link className="link" to="/">
               Let's get cocktail!
             </Link>
           </p>
